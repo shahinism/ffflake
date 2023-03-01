@@ -1,0 +1,37 @@
+" General Settings
+set update.lastchecktime 1677494598280
+set update.nag true
+set update.nagwait 7
+set update.lastnaggedversion 1.14.0
+set update.checkintervalsecs 86400
+set configversion 2.0
+
+" Binds
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind ,<Space> nohlsearch
+
+bind --mode=ex <C-a> text.beginning_of_line
+bind --mode=ex <C-e> text.end_of_line
+bind --mode=ex <C-w> text.backward_kill_word
+bind --mode=input <C-a> text.beginning_of_line
+bind --mode=input <C-e> text.end_of_line
+bind --mode=input <C-w> text.backward_kill_word
+bind --mode=insert <C-a> text.beginning_of_line
+bind --mode=insert <C-e> text.end_of_line
+bind --mode=insert <C-w> text.backward_kill_word
+
+bind <C-n> tabnext
+bind <C-p> tabprev
+
+" Allow Ctrl-c to copy in the commandline
+unbind --mode=ex <C-c>
+
+" use all Gmail and Fastmail keyboard bindings
+autocmd DocStart mail.google.com/* mode ignore
+autocmd DocStart app.fastmail.com/* mode ignore
+
+" For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
+" vim: set filetype=tridactyl

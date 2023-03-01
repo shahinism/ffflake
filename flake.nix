@@ -4,9 +4,15 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    emacs-overlay = "github:nix-community/emacs-overlay/master";
+    
+    home-manager = {                                                      # User Package Management
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
     
-  outputs = { self, nixpkgs, nixos-hardware }: 
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, emacs-overlay }: 
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -21,6 +27,18 @@
           modules = [
             ./configuration.nix
             nixos-hardware.nixosModules.system76
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.shahin = { ... }: {
+                  imports = [
+                    ./home-manager/home.nix
+                  ];
+                };
+              };
+            }
           ];
         };
       };
