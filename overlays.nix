@@ -1,6 +1,7 @@
-{config, pkgs, lib, ...}:
+{config, pkgs, lib, self, ...}:
 {
   nixpkgs.overlays = [
+    (import self.inputs.emacs-overlay)
     (self: super: {
       qtile = super.qtile.unwrapped.overrideAttrs (prev: rec {
         # version = "master";
