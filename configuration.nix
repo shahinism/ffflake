@@ -30,6 +30,8 @@
     opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   };
 
+  
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -118,6 +120,7 @@
   networking.dhcpcd.extraConfig = "nohook resolv.conf";
   networking.networkmanager.dns = "none";
   services.resolved.enable = false;
+  services.blueman.enable = true; 
 
   # Enable automatic login for the user.
   services.xserver = {
@@ -145,6 +148,13 @@
     libinput.enable = true;
 
     videoDrivers = [ "nvidia" ];
+
+    # Fix screen tearing
+    screenSection = ''
+  Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+  Option         "AllowIndirectGLXProtocol" "off"
+  Option         "TripleBuffer" "on"
+'';
   };
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
