@@ -39,6 +39,8 @@ in {
     cmake     # rquired by emacs to build vterm
     gcc
     git-extras
+    tmux      # TODO tune me
+    silver-searcher
 
     # Required for Emacs vterm
     libvterm
@@ -93,7 +95,7 @@ in {
     libreoffice
 
     (python3.withPackages python-packages)
-    ((emacsPackagesFor emacsUnstable).emacsWithPackages(epkgs: with epkgs; [ vterm ]))
+    ((emacsPackagesFor emacs29).emacsWithPackages(epkgs: with epkgs; [ vterm ]))
   ] ++ nodejs-packages;
 
   home.shellAliases = {
@@ -124,7 +126,7 @@ in {
   
   services.emacs = {
       enable = true;
-      package = pkgs.emacsUnstable;
+      package = pkgs.emacs29;
   };
 
   services.gpg-agent = {

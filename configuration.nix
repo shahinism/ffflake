@@ -37,6 +37,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # Kernel
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  
   # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
