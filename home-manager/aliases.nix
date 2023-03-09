@@ -16,6 +16,7 @@
     mkdir = "mkdir -pv";
     ports = "sudo netstat -tunapl";
     poweroff = "shutdow -h now";
+    ps = "procs";
     reboot = "shutdown -r now";
     rm = "rm -i --preserve-root";
     serve = "python -m http.server";
