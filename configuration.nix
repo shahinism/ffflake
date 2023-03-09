@@ -105,13 +105,14 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shahin = {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "Shahin Azad";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       nixFlakes
     ];
