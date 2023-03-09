@@ -10,6 +10,11 @@
     enableBashIntegration = true;
   };
 
+  programs.readline = {
+    enable = true;
+    extraConfig = "source ${./bash/inputrc.sh}";
+  };
+
   programs.bash = {
     enable = true;
 
@@ -35,6 +40,9 @@
 
       "histappend"             # Append to the history file on shell
                                # exits.
+      # Save multi-line commands as such (do not rearrange in single line)
+      "cmdhist"
+      "lithist"
     ];
   };
 }

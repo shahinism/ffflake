@@ -99,6 +99,7 @@ in {
     (python3.withPackages python-packages)
     ((emacsPackagesFor emacs29).emacsWithPackages(epkgs: with epkgs; [ vterm ]))
 
+    bash-completion
     # zsh-completions
     docker-compose
     # Modern CLI tools
