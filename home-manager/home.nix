@@ -12,7 +12,7 @@ let
 in {
   imports = [
     ./firefox.nix
-    ./zsh.nix
+    ./bash.nix
     ./git.nix
     ./dunst.nix
   ];
@@ -99,6 +99,7 @@ in {
     (python3.withPackages python-packages)
     ((emacsPackagesFor emacs29).emacsWithPackages(epkgs: with epkgs; [ vterm ]))
 
+    # zsh-completions
     docker-compose
     # Modern CLI tools
     # https://zaiste.net/posts/shell-commands-rust/

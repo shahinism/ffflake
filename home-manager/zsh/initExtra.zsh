@@ -1,27 +1,12 @@
-GITSTATUS_LOG_LEVEL=DEBUG
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+### Environment Variables ###
+export EDITOR="emacsclient -nw"
+export VISUAL="emacsclient -nw"
 
+### SSH using Yubikey ###
 gpg-connect-agent /bye
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-# [Up-Arrow] - fuzzy find history forward
-autoload -U up-line-or-beginning-search
-zle -N up-line-or-beginning-search
-bindkey "$terminfo[kcuu1]" up-line-or-beginning-search
-# [Down-Arrow] - fuzzy find history backward
-autoload -U down-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "$terminfo[kcud1]" down-line-or-beginning-search
-
-# Character delete style
-# https://unix.stackexchange.com/a/392199
-autoload -U select-word-style
-select-word-style bash
-
-export WORDCHARS='.-'
-
-# Functions
+### Functions ###
 docker-clean () {
     docker volume rm $(docuer volume ls -qf dangling=true) || echo "No volume to clean!"
     docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }') || echo "No network to clean!"
@@ -45,3 +30,9 @@ nix-clean () {
     # FIXME home-manager gets removed with this operation.
     nix-shell '<home-manager>' -A install
 }
+
+
+### Plugins ###
+# https://docs.gitignore.io/install/command-line
+function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+

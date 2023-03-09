@@ -1,5 +1,15 @@
-{pkgs, ...}:
+{pkgs, config, ...}:
 {
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
 
@@ -20,11 +30,7 @@
     zplug = {
       enable = true;
       plugins = [
-        {name = "plugins/git"; tags = [ from:oh-my-zsh ];}
         {name = "plugins/fzf"; tags = [ from:oh-my-zsh ];}
-        {name = "plugins/fasd"; tags = [ from:oh-my-zsh ];}
-        {name = "plugins/pip"; tags = [ from:oh-my-zsh ];}
-        {name = "plugins/direnv"; tags = [ from:oh-my-zsh ];}
         {name = "plugins/command-not-found"; tags = [ from:oh-my-zsh ];}
         {name = "blimmer/zsh-aws-vault"; tags = [ at:main ];}
         {name = "zdharma-continuum/fast-syntax-highlighting";}
@@ -33,4 +39,5 @@
 
     initExtra = "source ${./zsh/initExtra.zsh}";
   };
+  
 }

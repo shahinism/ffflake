@@ -109,7 +109,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shahin = {
-    shell = pkgs.zsh;
+    shell = pkgs.bash;
     isNormalUser = true;
     description = "Shahin Azad";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
