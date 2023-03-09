@@ -64,7 +64,7 @@ in {
     rofi
     espanso
 
-    pinentry-emacs
+    pinentry-gtk2
     
     ranger
     direnv
@@ -94,8 +94,21 @@ in {
 
     libreoffice
 
+    hugo
+
     (python3.withPackages python-packages)
     ((emacsPackagesFor emacs29).emacsWithPackages(epkgs: with epkgs; [ vterm ]))
+
+    docker-compose
+    # Modern CLI tools
+    # https://zaiste.net/posts/shell-commands-rust/
+    # dust
+    procs
+    bottom
+    tealdeer
+    bandwhich
+    zoxide
+    fd
   ] ++ nodejs-packages;
 
   home.shellAliases = {
@@ -107,6 +120,7 @@ in {
     grep = "batgrep";
     ls = "exa";
     mkdir = "mkdir -pv";
+    top = "btm";
   };
 
   programs = {
@@ -132,6 +146,7 @@ in {
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+    pinentryFlavor = "gtk2";
   };
 
   # Enable keybase requirements
@@ -141,7 +156,5 @@ in {
   # TODO declarative configuration with secrets
   services.syncthing = {
     enable = true;
-  };
-
-  services.lorri.enable = true;
+  };  
 }
