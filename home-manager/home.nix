@@ -18,6 +18,7 @@ in {
     ./dunst.nix
     ./emacs.nix
     ./qtile.nix
+    ./rofi.nix
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -64,7 +65,6 @@ in {
     ripgrep
 
     kitty
-    rofi
     espanso
 
     pinentry-gtk2
