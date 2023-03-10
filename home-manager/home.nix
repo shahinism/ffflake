@@ -17,6 +17,7 @@ in {
     ./git.nix
     ./dunst.nix
     ./emacs.nix
+    ./qtile.nix
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
