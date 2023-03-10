@@ -76,7 +76,7 @@
   (setq org-roam-v2-ack t
         org-roam-directory (file-truename org-directory))
 
-  (unless (f-directory? org-roam-directory)
+  (unless (file-directory-p org-roam-directory)
     (make-directory org-roam-directory t))
   
   :config

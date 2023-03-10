@@ -22,17 +22,18 @@
       (message "Run 'go mod vendor'!"))))
 
 (leaf gotest
+  :after go-mode
   :doc "Run Go unit-tests"
   :url "https://github.com/nlamirault/gotest.el"
   :ensure t
   :require t
   :bind
-  (:go-mode-map
-   ("C-c t" . go-test-clean-and-current-test)
-	 ("C-c f" . go-test-clean-and-current-file)
-   ("C-c T" . go-test-current-test)
-	 ("C-c F" . go-test-current-file)
-	 ("C-c a" . go-test-current-project))
+  ;; (:go-mode-map
+  ;;  ("C-c t" . go-test-clean-and-current-test)
+  ;;        ("C-c f" . go-test-clean-and-current-file)
+  ;;  ("C-c T" . go-test-current-test)
+  ;;        ("C-c F" . go-test-current-file)
+  ;;        ("C-c a" . go-test-current-project))
   :preface
   (defun go-test-clean-and-current-test()
     (interactive)
