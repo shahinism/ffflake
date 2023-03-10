@@ -1,0 +1,15 @@
+places
+projects
+transient/
+elpa/
+etc/
+var/
+*~
+eshell/
+projectile*
+.cache
+straight
+org-roam.db
+devdocs
+el-get
+session*

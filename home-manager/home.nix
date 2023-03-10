@@ -16,6 +16,7 @@ in {
     ./aliases.nix
     ./git.nix
     ./dunst.nix
+    ./emacs.nix
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -98,7 +99,6 @@ in {
     hugo
 
     (python3.withPackages python-packages)
-    ((emacsPackagesFor emacs29).emacsWithPackages(epkgs: with epkgs; [ vterm ]))
 
     bash-completion
     # zsh-completions
@@ -112,7 +112,7 @@ in {
     bandwhich
     zoxide
     fd
-  ] ++ nodejs-packages;
+  ] ++ nodejs-packages ++ shahin-emacs29;
 
   programs = {
     starship.enable = true;
@@ -129,11 +129,6 @@ in {
     };
   };
   
-  services.emacs = {
-      enable = true;
-      package = pkgs.emacs29;
-  };
-
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;

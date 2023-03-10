@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: dayplan
+# key: dp
+# --
+
+* ${1:[`(format-time-string "%Y-%m-%d %a")`]}
+** Habit [%]
+$2
+** Work [%]
+$3
+** Personal [%]
+$4
