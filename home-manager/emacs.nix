@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, config, ...}:
 
 {
   programs.emacs = {
@@ -11,10 +11,9 @@
     package = pkgs.emacs29;
   };
 
-  home.file = {
-    ".emacs.d" = {
-      source = ./. + "/emacs";
-      recursive = true;
+ home.file = {
+   ".emacs.d" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/emacs/";
     };
   };
 }
