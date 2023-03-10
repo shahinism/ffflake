@@ -17,7 +17,7 @@ AUTOSTART_APPS = [
     # Encrypt Everything!
     'KEYBASE_AUTOSTART=1 keybase-gui',
     # Run Espanso
-    'espanso service start --unmanaged',
+    # 'espanso service start --unmanaged',
     # Apply screen definition
     "autorandr --change"
 ]

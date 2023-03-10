@@ -65,7 +65,6 @@ in {
     ripgrep
 
     kitty
-    espanso
 
     pinentry-gtk2
     
