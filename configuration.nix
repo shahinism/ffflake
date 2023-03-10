@@ -78,6 +78,8 @@
   };
 
   fonts.fonts = with pkgs; [
+    roboto
+    emacs-all-the-icons-fonts
     (nerdfonts.override { fonts = [ "FiraCode" "Hack" ]; })
   ];
 
