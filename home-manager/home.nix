@@ -112,7 +112,7 @@ in {
     bandwhich
     zoxide
     fd
-  ] ++ nodejs-packages ++ shahin-emacs29;
+  ] ++ nodejs-packages;
 
   programs = {
     starship.enable = true;

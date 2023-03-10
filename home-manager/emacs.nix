@@ -1,7 +1,11 @@
 {pkgs, ...}:
 
 {
-  shahin-emacs29 = ((pkgs.emacsPackagesFor pkgs.emacs29).emacsWithPackages(epkgs: with epkgs; [ vterm ]));
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs29;
+  };
+  
   services.emacs = {
     enable = true;
     package = pkgs.emacs29;
@@ -10,6 +14,7 @@
   home.file = {
     ".emacs.d" = {
       source = ./. + "/emacs";
+      recursive = true;
     };
   };
 }
