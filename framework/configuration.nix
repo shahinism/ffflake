@@ -20,6 +20,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  # Solve 12th Gen (Alder Lake) with X server
+  # https://nixos.wiki/wiki/Intel_Graphics
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
 
   # Setup keyfile
   boot.initrd.secrets = {
