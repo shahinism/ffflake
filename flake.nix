@@ -65,6 +65,7 @@
           modules = [
             ./overlays.nix
             ./framework/configuration.nix
+            nixos-hardware.nixosModules.framework-12th-gen-intel
             home-manager.nixosModules.home-manager
             {
               home-manager = {
