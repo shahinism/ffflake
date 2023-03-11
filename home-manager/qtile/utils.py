@@ -1,6 +1,6 @@
 AUTOSTART_APPS = [
     # zoom-in (required for the framework resolution)
-    # "xrandr --output eDP-1 --scale 0.8",  # TODO check if it's wayland, run `kanshi` instead.
+    "[ $HOSTNAME == 'framework' ] && xrandr --output eDP-1 --scale 0.8",  # TODO check if it's wayland, run `kanshi` instead.
     # network manager applet
     "nm-applet",
     # bluetooth applet

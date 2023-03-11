@@ -347,10 +347,10 @@ def init_screens():
             wallpaper_mode=wallpaper_mode,
             top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=25),
         )
-    if len(qtile.screens) == 1:
-        return [middle]
-    else:
+    if len(qtile.screens) == 3:
         return [left, right, middle]
+    else:
+        return [middle]
 
 
 def window_to_prev_group(qtile):

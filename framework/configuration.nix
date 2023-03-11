@@ -22,7 +22,23 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Solve 12th Gen (Alder Lake) with X server
   # https://nixos.wiki/wiki/Intel_Graphics
-  boot.kernelParams = [ "i915.force_probe=46a6" ];
+  boot.kernelParams = [
+    "i915.force_probe=46a6"
+    "i915.enable_psr=1"
+  ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel         # LIBVA_DRIVER_NAME=1965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
 
   # Setup keyfile
   boot.initrd.secrets = {
@@ -35,11 +51,10 @@
 
   networking.hostName = "framework"; # Define your hostname.
 
-
-  services.xserver.videoDrivers = [ "intel" ]; 
+  services.xserver.videoDrivers = [ "modesetting" ]; 
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [];
