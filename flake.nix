@@ -42,6 +42,7 @@
           inherit pkgs;
           modules = [
             ./overlays.nix
+            ./shared.nix
             ./system76/configuration.nix
             nixos-hardware.nixosModules.system76
             home-manager.nixosModules.home-manager
@@ -64,6 +65,7 @@
           inherit pkgs;
           modules = [
             ./overlays.nix
+            ./shared.nix
             ./framework/configuration.nix
             nixos-hardware.nixosModules.framework-12th-gen-intel
             home-manager.nixosModules.home-manager
