@@ -41,8 +41,30 @@
           inherit system;
           inherit pkgs;
           modules = [
-            ./configuration.nix
+            ./overlays.nix
+            ./system76/configuration.nix
             nixos-hardware.nixosModules.system76
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.shahin = { ... }: {
+                  imports = [
+                    ./home-manager/home.nix
+                  ];
+                };
+              };
+            }
+          ];
+        };
+
+        framework = lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          modules = [
+            ./overlays.nix
+            ./framework/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager = {
