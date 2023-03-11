@@ -29,6 +29,18 @@ from libqtile import hook
 from bin.lock_screen import lock_screen
 
 
+def get_number_of_screens():
+    if os.environ.get("XDG_SESSION_TYPE") == "x11":
+        res = subprocess.check_output("xrandr | grep ' connected ' | wc -l", shell=True)
+        return int(res)
+    else:
+        # FIXME: This was returning wrong value, so I switched to
+        # XRandr, in case, need this value for wayland, find a way for
+        # it.
+        return len(qtile.screens)
+
+NUMBER_OF_SCREENS = get_number_of_screens()
+
 @lazy.function
 def toggle_kbd_layout(qtile):
     ENGLISH = "us"
@@ -176,11 +188,10 @@ group_screen = {
     "9": 1,
 }
 
-if len(qtile.screens) == 1:
+if NUMBER_OF_SCREENS == 1:
     group_screen = {k: 0 for k in group_screen.keys()}
 
 groups = [Group(i) for i in group_screen.keys()]
-
 for group in groups:
     screen = group_screen[group.name]
     keys.append(Key([mod], group.name, lazy.group[group.name].toscreen(screen), lazy.to_screen(screen)))
@@ -347,7 +358,7 @@ def init_screens():
             wallpaper_mode=wallpaper_mode,
             top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=25),
         )
-    if len(qtile.screens) == 3:
+    if NUMBER_OF_SCREENS == 3:
         return [left, right, middle]
     else:
         return [middle]

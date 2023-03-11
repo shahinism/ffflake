@@ -64,4 +64,3 @@ IS_MICROPHONE_MUTED_SHELL_CMD = '''
 TOGGLE_MICROPHONE_MUTE_SHELL_CMD = '''
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
 '''
-
