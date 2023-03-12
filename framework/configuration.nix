@@ -24,7 +24,6 @@
   # https://nixos.wiki/wiki/Intel_Graphics
   boot.kernelParams = [
     "i915.force_probe=46a6"
-    "i915.enable_psr=1"
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
