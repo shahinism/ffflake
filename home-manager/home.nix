@@ -112,6 +112,7 @@ in {
     bandwhich
     zoxide
     fd
+    rm-improved
   ] ++ nodejs-packages;
 
   programs = {
