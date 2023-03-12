@@ -78,6 +78,7 @@ in {
     xss-lock
     udiskie
     betterlockscreen
+    brightnessctl
 
     pulseaudioFull
     obs-studio
