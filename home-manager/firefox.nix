@@ -438,6 +438,10 @@
             installation_mode = "normal_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/traduzir-paginas-web/latest.xpi";
           };
+          "sourcegraph-for-firefox@sourcegraph.com" = {
+            installation_mode = "normal_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/sourcegraph-for-firefox/latest.xpi";
+          };
         };
       };
     };
