@@ -3,6 +3,7 @@
 let
   python-packages = p: with p; [
     # python-lsp-server
+    ipython
   ];
   nodejs-packages = with pkgs.nodePackages_latest; [
     # vscode-langservers-extracted
