@@ -165,5 +165,8 @@
              (and (equal name 'leaf)  (funcall n-insert-symbol ""))))))))
 
 (leaf nix-mode :ensure t)
+(leaf dockerfile-mode :ensure t)
+(leaf docker-compose-mode :ensure t)
+(leaf docker :ensure t)
 
 (provide 'lt-programming)
