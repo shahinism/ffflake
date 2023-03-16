@@ -93,7 +93,7 @@ in {
     autorandr
 
     aws-vault
-    awscli
+    awscli2
     ssm-session-manager-plugin
 
     libreoffice
