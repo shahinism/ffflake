@@ -24,6 +24,10 @@
         # reminding you of it.
         defaultBranch = "main";
       };
+      push = {
+        # Automatically set the remote when pushing.
+        autoSetupRemote = true;
+      };
     };
   };
 
