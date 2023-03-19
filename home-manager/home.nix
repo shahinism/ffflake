@@ -3,6 +3,7 @@
 let
   python-packages = p: with p; [
     # python-lsp-server
+    ipython
   ];
   nodejs-packages = with pkgs.nodePackages_latest; [
     # vscode-langservers-extracted
@@ -92,7 +93,7 @@ in {
     autorandr
 
     aws-vault
-    awscli
+    awscli2
     ssm-session-manager-plugin
 
     libreoffice
