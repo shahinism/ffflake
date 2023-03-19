@@ -7,6 +7,8 @@
     ".5" = "cd ../../../../..";
     c = "xclip -selection clipboard";
     cat = "bat";
+    e = "emacsclient";
+    ed = "emacsclient -c";
     flightoff = "sudo rfkill unblock all";
     flighton = "sudo rfkill block all";
     l = "exa";
