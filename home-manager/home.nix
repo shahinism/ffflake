@@ -100,6 +100,10 @@ in {
 
     hugo
 
+    # Nix tools
+    comma      # Run binaries without installing them!
+
+    # Python
     (python3.withPackages python-packages)
 
     bash-completion
