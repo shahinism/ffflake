@@ -24,6 +24,7 @@
     serve = "python -m http.server";
     sleep = "systemctl suspend";
     snr = "sudo systemctl restart NetworkManager";
+    tf = "terraform";
     top = "btm";
     watch = "batwatch";
     wget = "wget -c";      # Resume by default
