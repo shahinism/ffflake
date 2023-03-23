@@ -1,4 +1,4 @@
-{pkgs, config, ...}:
+{ pkgs, config, ... }:
 
 let
   emacsClientGuiDesktop = pkgs.makeDesktopItem {
@@ -10,7 +10,8 @@ let
       "text/english"
       "text/plain"
       "text/x-makefile"
-      "text/x-c++hdr""text/x-c++src"
+      "text/x-c++hdr"
+      "text/x-c++src"
       "text/x-chdr"
       "text/x-csrc"
       "text/x-java"
@@ -22,20 +23,14 @@ let
       "text/x-c"
       "text/x-c++"
     ];
-    exec = "emacsclient -c -a \"emacs\" %F";
-    icon="emacs";
+    exec = ''emacsclient -c -a "emacs" %F'';
+    icon = "emacs";
     terminal = false;
-    categories = [
-      "Development"
-      "TextEditor"
-      "Utility"
-    ];
-    startupWMClass="Emacs";
+    categories = [ "Development" "TextEditor" "Utility" ];
+    startupWMClass = "Emacs";
   };
 in {
-  home.packages = [
-    emacsClientGuiDesktop
-  ];
+  home.packages = [ emacsClientGuiDesktop ];
 
   programs.emacs = {
     enable = true;
@@ -47,9 +42,10 @@ in {
     package = pkgs.emacs29;
   };
 
- home.file = {
-   ".emacs.d" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/emacs/";
+  home.file = {
+    ".emacs.d" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/emacs/";
     };
   };
 }

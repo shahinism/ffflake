@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   hardware = {
     enableAllFirmware = true;
@@ -22,9 +21,7 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Solve 12th Gen (Alder Lake) with X server
   # https://nixos.wiki/wiki/Intel_Graphics
-  boot.kernelParams = [
-    "i915.force_probe=46a6"
-  ];
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
@@ -33,30 +30,30 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=1965 (older but works better for Firefox/Chromium)
+      vaapiIntel # LIBVA_DRIVER_NAME=1965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
     ];
   };
 
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-94d8bf3c-91b1-43d3-9d8e-6420c460881d".device = "/dev/disk/by-uuid/94d8bf3c-91b1-43d3-9d8e-6420c460881d";
-  boot.initrd.luks.devices."luks-94d8bf3c-91b1-43d3-9d8e-6420c460881d".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-94d8bf3c-91b1-43d3-9d8e-6420c460881d".device =
+    "/dev/disk/by-uuid/94d8bf3c-91b1-43d3-9d8e-6420c460881d";
+  boot.initrd.luks.devices."luks-94d8bf3c-91b1-43d3-9d8e-6420c460881d".keyFile =
+    "/crypto_keyfile.bin";
 
   networking.hostName = "framework"; # Define your hostname.
 
-  services.xserver.videoDrivers = [ "modesetting" ]; 
+  services.xserver.videoDrivers = [ "modesetting" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [ ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # System76
   hardware = {
@@ -33,15 +32,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  
+
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-f049a6fd-4311-49db-a162-e5ed47deda90".device = "/dev/disk/by-uuid/f049a6fd-4311-49db-a162-e5ed47deda90";
-  boot.initrd.luks.devices."luks-f049a6fd-4311-49db-a162-e5ed47deda90".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-f049a6fd-4311-49db-a162-e5ed47deda90".device =
+    "/dev/disk/by-uuid/f049a6fd-4311-49db-a162-e5ed47deda90";
+  boot.initrd.luks.devices."luks-f049a6fd-4311-49db-a162-e5ed47deda90".keyFile =
+    "/crypto_keyfile.bin";
 
   networking.hostName = "system76"; # Define your hostname.
 
@@ -49,12 +48,12 @@
 
   # Fix screen tearing
   services.xserver.screenSection = ''
-  Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-  Option         "AllowIndirectGLXProtocol" "off"
-  Option         "TripleBuffer" "on"
-'';
+    Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+    Option         "AllowIndirectGLXProtocol" "off"
+    Option         "TripleBuffer" "on"
+  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [ ];
 }

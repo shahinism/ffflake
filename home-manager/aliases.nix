@@ -27,6 +27,6 @@
     tf = "terraform";
     top = "btm";
     watch = "batwatch";
-    wget = "wget -c";      # Resume by default
+    wget = "wget -c"; # Resume by default
   };
 }

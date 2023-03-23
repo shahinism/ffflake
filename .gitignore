@@ -8,3 +8,7 @@
 # End of https://www.toptal.com/developers/gitignore/api/direnv
 # Custom
 *.tmp
+# Devenv
+.devenv*
+devenv.local.nix
+

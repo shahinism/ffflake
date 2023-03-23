@@ -39,7 +39,9 @@ def get_number_of_screens():
         # it.
         return len(qtile.screens)
 
+
 NUMBER_OF_SCREENS = get_number_of_screens()
+
 
 @lazy.function
 def toggle_kbd_layout(qtile):
@@ -60,6 +62,7 @@ def toggle_kbd_layout(qtile):
 @lazy.function
 def lazy_lock_screen(qtile):
     lock_screen()
+
 
 colors = [
     ["#000000", "#000000"],
@@ -194,7 +197,14 @@ if NUMBER_OF_SCREENS == 1:
 groups = [Group(i) for i in group_screen.keys()]
 for group in groups:
     screen = group_screen[group.name]
-    keys.append(Key([mod], group.name, lazy.group[group.name].toscreen(screen), lazy.to_screen(screen)))
+    keys.append(
+        Key(
+            [mod],
+            group.name,
+            lazy.group[group.name].toscreen(screen),
+            lazy.to_screen(screen),
+        )
+    )
     keys.append(Key([mod, "shift"], group.name, lazy.window.togroup(group.name)))
 
 
@@ -269,7 +279,7 @@ def init_widgets_list():
             prefix_inactive="🍅",
             prefix_break="🎉 ",
             prefix_long_break="🥳 ",
-            prefix_paused="🥝"
+            prefix_paused="🥝",
         ),
         sep,
         widget.CPUGraph(background=Colors.background),
@@ -344,20 +354,20 @@ def init_screens():
     background = "~/.config/qtile/backgrounds/mountain.jpg"
     wallpaper_mode = "stretch"
     left = Screen(
-            wallpaper=background,
-            wallpaper_mode=wallpaper_mode,
-            # top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=25),
-        )
+        wallpaper=background,
+        wallpaper_mode=wallpaper_mode,
+        # top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=25),
+    )
     right = Screen(
-            wallpaper=background,
-            wallpaper_mode=wallpaper_mode,
-            # top=bar.Bar(widgets=screen_2_widgets, opacity=1.0, size=25),
-        )
+        wallpaper=background,
+        wallpaper_mode=wallpaper_mode,
+        # top=bar.Bar(widgets=screen_2_widgets, opacity=1.0, size=25),
+    )
     middle = Screen(
-            wallpaper=background,
-            wallpaper_mode=wallpaper_mode,
-            top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=25),
-        )
+        wallpaper=background,
+        wallpaper_mode=wallpaper_mode,
+        top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=25),
+    )
     if NUMBER_OF_SCREENS == 3:
         return [left, right, middle]
     else:
@@ -424,7 +434,7 @@ floating_layout = layout.Floating(
         # Run the utility of `xprop` to see the wm class and name of an X client.
         # default_float_rules include: utility, notification, toolbar, splash, dialog,
         # file_progress, confirm, download and error.
-         *layout.Floating.default_float_rules,
+        *layout.Floating.default_float_rules,
         Match(title="Confirmation"),  # tastyworks exit box
         Match(title="Qalculate!"),  # qalculate-gtk
         Match(wm_class="kdenlive"),  # kdenlive
