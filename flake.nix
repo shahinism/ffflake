@@ -7,6 +7,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
     emacs-src.flake = false;
+    devenv.url = "github:cachix/devenv/latest";
     
     home-manager = {                                                      # User Package Management
       url = "github:nix-community/home-manager";
@@ -14,7 +15,14 @@
     };
   };
     
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, emacs-overlay, emacs-src }: 
+  outputs = { self,
+              nixpkgs,
+              nixos-hardware,
+              home-manager,
+              emacs-overlay,
+              emacs-src,
+              devenv
+            }: 
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -35,6 +43,9 @@
         ];
       };
       lib = nixpkgs.lib;
+      extraArgs = {
+        inherit devenv;
+      };
     in {
       nixosConfigurations = {
         system76 = lib.nixosSystem {
@@ -55,6 +66,7 @@
                     ./home-manager/home.nix
                   ];
                 };
+                extraSpecialArgs = extraArgs;
               };
             }
           ];
@@ -78,6 +90,7 @@
                     ./home-manager/home.nix
                   ];
                 };
+                extraSpecialArgs = extraArgs;
               };
             }
           ];

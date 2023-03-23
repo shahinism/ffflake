@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, devenv, ... }:
 
 let
   python-packages = p: with p; [
@@ -10,6 +10,7 @@ let
     # typescript-language-server
     js-beautify # used with Emacs' web-beautify
   ];
+  devpkgs = devenv.packages.x86_64-linux;
 in {
   imports = [
     ./firefox.nix
@@ -31,7 +32,7 @@ in {
   # when a new Home Manager release introduces backwards
   # incompatible changes.
   #
-  # You can update Home Manager without changing this value. See
+  # You can update Homse Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "23.05";
@@ -102,6 +103,7 @@ in {
 
     # Nix tools
     comma      # Run binaries without installing them!
+    cachix     # Service for Nix binary cache hosting
 
     # Python
     (python3.withPackages python-packages)
@@ -119,7 +121,7 @@ in {
     zoxide
     fd
     rm-improved
-  ] ++ nodejs-packages;
+  ] ++ nodejs-packages ++ [devpkgs.devenv];
 
   programs = {
     starship.enable = true;
