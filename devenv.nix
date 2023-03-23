@@ -22,6 +22,9 @@ in {
   # Make diffs fantastic
   difftastic.enable = true;
 
+  # Enable codespaces
+  devcontainer.enable = true;
+
   # https://devenv.sh/pre-commit-hooks/
   pre-commit.hooks = {
     shellcheck.enable = true;
