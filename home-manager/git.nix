@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{ pkgs, ... }: {
   programs.git = {
     enable = true;
 
@@ -8,15 +7,13 @@
 
     signing = {
       signByDefault = true;
-      key = null;  # set to null for GPG to decide
+      key = null; # set to null for GPG to decide
     };
 
-    includes = [
-      {
-        path = "~/.config/git/includes/DataChef";
-        condition = "gitdir:~/projects/DataChef/";
-      }
-    ];
+    includes = [{
+      path = "~/.config/git/includes/DataChef";
+      condition = "gitdir:~/projects/DataChef/";
+    }];
 
     extraConfig = {
       init = {

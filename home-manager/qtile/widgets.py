@@ -8,40 +8,39 @@ from libqtile.log_utils import logger
 from libqtile.widget.battery import BatteryState, BatteryStatus
 
 
-
 class Battery(widget.Battery):
     """
     Widget to display battery icon depending on battery state
     """
 
-    FULL_BATTERY_ICON = ''
-    EMPTY_BATTERY_ICON = ''
-    UNKNOWN_BATTERY_ICON = ''
+    FULL_BATTERY_ICON = ""
+    EMPTY_BATTERY_ICON = ""
+    UNKNOWN_BATTERY_ICON = ""
 
     CHARGING_ICONS = {
-        10: '',
-        20: '',
-        30: '',
-        40: '',
-        50: '',
-        60: '',
-        70: '',
-        80: '',
-        90: '',
-        100: FULL_BATTERY_ICON
+        10: "",
+        20: "",
+        30: "",
+        40: "",
+        50: "",
+        60: "",
+        70: "",
+        80: "",
+        90: "",
+        100: FULL_BATTERY_ICON,
     }
 
     DISCHARGING_ICONS = {
-        10: '',
-        20: '',
-        30: '',
-        40: '',
-        50: '',
-        60: '',
-        70: '',
-        80: '',
-        90: '',
-        100: FULL_BATTERY_ICON
+        10: "",
+        20: "",
+        30: "",
+        40: "",
+        50: "",
+        60: "",
+        70: "",
+        80: "",
+        90: "",
+        100: FULL_BATTERY_ICON,
     }
 
     def build_string(self, status: BatteryStatus) -> str:
@@ -52,7 +51,7 @@ class Battery(widget.Battery):
         state: BatteryState = status.state
         percentage = int(status.percent * 100)
         icon = self._get_battery_icon(state, percentage)
-        return f'{icon} {percentage}%'
+        return f"{icon} {percentage}%"
 
     def _get_battery_icon(self, state: BatteryState, percentage: int) -> str:
         if state == BatteryState.FULL:
@@ -66,7 +65,7 @@ class Battery(widget.Battery):
             return self.CHARGING_ICONS[low_boundary]
         if state == BatteryState.DISCHARGING:
             return self.DISCHARGING_ICONS[low_boundary]
-        assert False, 'unknown battery state'
+        assert False, "unknown battery state"
 
 
 class Volume(widget.base.InLoopPollText):
@@ -78,36 +77,39 @@ class Volume(widget.base.InLoopPollText):
 
     defaults = [
         (
-            'get_volume_shell_cmd',
+            "get_volume_shell_cmd",
             None,
-            'Command to get volume. It should return integer number only '
-            'which represents volume level percentage'
+            "Command to get volume. It should return integer number only "
+            "which represents volume level percentage",
         ),
-        ('raise_volume_shell_cmd', None, 'Volume up command'),
-        ('lower_volume_shell_cmd', None, 'Volume down command'),
+        ("raise_volume_shell_cmd", None, "Volume up command"),
+        ("lower_volume_shell_cmd", None, "Volume down command"),
         (
-            'get_muted_status_shell_cmd',
+            "get_muted_status_shell_cmd",
             None,
             'Command to get muted status. It should only return "1" if '
-            'device is muted, "0" otherwise'
+            'device is muted, "0" otherwise',
         ),
-        ('toggle_mute_shell_cmd', None, 'Command to toggle mute status'),
-        ('icons', {}, 'Volume level icons'),
+        ("toggle_mute_shell_cmd", None, "Command to toggle mute status"),
+        ("icons", {}, "Volume level icons"),
     ]
 
     def __init__(self, **config):
         super().__init__(**config)
         self.add_defaults(self.defaults)
-        self.add_callbacks({
-            "Button1": self.toggle_mute_volume,
-            "Button4": self.raise_volume,
-            "Button5": self.lower_volume
-        })
+        self.add_callbacks(
+            {
+                "Button1": self.toggle_mute_volume,
+                "Button4": self.raise_volume,
+                "Button5": self.lower_volume,
+            }
+        )
 
     class VolumeState(NamedTuple):
         """
         Representation of volume state independently from OS tools
         """
+
         percentage: int
         muted: bool
 
@@ -118,17 +120,17 @@ class Volume(widget.base.InLoopPollText):
         try:
             volume_state = self._get_volume_state()
         except Exception:
-            logger.exception('Exception while getting volume state')
+            logger.exception("Exception while getting volume state")
             # on Qtile startup audio might no be ready yet, so
             # don't throw an error here hoping that it will
             # succeed at next 'poll' call
-            return ''
+            return ""
         volume = volume_state.percentage
         if volume_state.muted:
-            icon = self.icons['muted']
+            icon = self.icons["muted"]
         else:
             icon = self._get_volume_icon(volume)
-        return f'{icon} {volume}%'
+        return f"{icon} {volume}%"
 
     def raise_volume(self):
         """
@@ -151,21 +153,21 @@ class Volume(widget.base.InLoopPollText):
         self.call_process(self.toggle_mute_shell_cmd, shell=True)
         self.tick()
 
-    def _get_volume_state(self) -> 'Volume.VolumeState':
-        volume = self.call_process(self.get_volume_shell_cmd,
-                                   shell=True, text=True)
-        muted = self.call_process(self.get_muted_status_shell_cmd,
-                                  shell=True, text=True)
+    def _get_volume_state(self) -> "Volume.VolumeState":
+        volume = self.call_process(self.get_volume_shell_cmd, shell=True, text=True)
+        muted = self.call_process(
+            self.get_muted_status_shell_cmd, shell=True, text=True
+        )
         return Volume.VolumeState(int(volume), bool(int(muted)))
 
     def _get_volume_icon(self, volume: int) -> str:
         if volume <= 0:
-            return self.icons['muted']
+            return self.icons["muted"]
         if volume <= 30:
-            return self.icons['low']
+            return self.icons["low"]
         if volume < 80:
-            return self.icons['medium']
-        return self.icons['high']
+            return self.icons["medium"]
+        return self.icons["high"]
 
 
 class NetworkManager(widget.base.InLoopPollText):
@@ -173,38 +175,38 @@ class NetworkManager(widget.base.InLoopPollText):
     Widget which displays networking state according to 'nmcli' output
     """
 
-    GET_ACTIVE_CONNECTION_SHELL_CMD = '''
+    GET_ACTIVE_CONNECTION_SHELL_CMD = """
         nmcli -g NAME,TYPE,DEVICE connection show --active | head -n 1
-    '''
-    GET_CONNECTIVITY_SHELL_CMD = 'nmcli networking connectivity'
+    """
+    GET_CONNECTIVITY_SHELL_CMD = "nmcli networking connectivity"
 
     FIELD_INDICES = {
-        'network_name': 0,
-        'connection_type': 1,
-        'interface_name': 2,
+        "network_name": 0,
+        "connection_type": 1,
+        "interface_name": 2,
     }
 
     defaults = [
         (
-            'icons',
+            "icons",
             {},
-            'Network icons. Dictionary where keys are values of '
-            'connection.type NetworkManager property'
+            "Network icons. Dictionary where keys are values of "
+            "connection.type NetworkManager property",
         ),
         (
-            'format_string',
-            '',
-            'Format string which will be used when host is connected to a'
-            'network an has full access to the Internet. Format options are'
+            "format_string",
+            "",
+            "Format string which will be used when host is connected to a"
+            "network an has full access to the Internet. Format options are"
             '"network_name", "connection_type", "interface_name", '
-            '"connectivity"'
+            '"connectivity"',
         ),
         (
-            'no_connection_format_string',
-            '',
-            'Format string which will be used when host has no full '
-            'Internet access, format options are the same as in '
-            '"format_string" parameter'
+            "no_connection_format_string",
+            "",
+            "Format string which will be used when host has no full "
+            "Internet access, format options are the same as in "
+            '"format_string" parameter',
         ),
     ]
 
@@ -212,6 +214,7 @@ class NetworkManager(widget.base.InLoopPollText):
         """
         Holder of connection state fields outputted from nmcli
         """
+
         network_name: str
         connection_type: str
         interface_name: str
@@ -227,26 +230,26 @@ class NetworkManager(widget.base.InLoopPollText):
         """
         net_state = self._get_network_state()
         connection_type = net_state.connection_type
-        icon = self.icons.get(connection_type, '')
+        icon = self.icons.get(connection_type, "")
         kwargs = dict(**net_state._asdict(), icon=icon)
-        if net_state.connectivity != 'full':
+        if net_state.connectivity != "full":
             return self.no_connection_format_string.format(**kwargs)
         return self.format_string.format(**kwargs)
 
-    def _get_network_state(self) -> 'NetworkManager.NetworkState':
+    def _get_network_state(self) -> "NetworkManager.NetworkState":
         """
         Call nmcli and parse its output
         """
-        output = self.call_process(self.GET_ACTIVE_CONNECTION_SHELL_CMD,
-                                   shell=True, text=True)
-        fields = output.split(':')
-        connectivity = self.call_process(self.GET_CONNECTIVITY_SHELL_CMD,
-                                         shell=True, text=True).strip()
-        return self.NetworkState(
-            network_name=fields[self.FIELD_INDICES['network_name']],
-            connection_type=fields[self.FIELD_INDICES['connection_type']],
-            interface_name=fields[self.FIELD_INDICES['interface_name']],
-            connectivity=connectivity
+        output = self.call_process(
+            self.GET_ACTIVE_CONNECTION_SHELL_CMD, shell=True, text=True
         )
-
-
+        fields = output.split(":")
+        connectivity = self.call_process(
+            self.GET_CONNECTIVITY_SHELL_CMD, shell=True, text=True
+        ).strip()
+        return self.NetworkState(
+            network_name=fields[self.FIELD_INDICES["network_name"]],
+            connection_type=fields[self.FIELD_INDICES["connection_type"]],
+            interface_name=fields[self.FIELD_INDICES["interface_name"]],
+            connectivity=connectivity,
+        )

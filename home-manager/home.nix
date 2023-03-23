@@ -1,15 +1,18 @@
 { config, pkgs, devenv, ... }:
 
 let
-  python-packages = p: with p; [
-    # python-lsp-server
-    ipython
-  ];
-  nodejs-packages = with pkgs.nodePackages_latest; [
-    # vscode-langservers-extracted
-    # typescript-language-server
-    js-beautify # used with Emacs' web-beautify
-  ];
+  python-packages = p:
+    with p;
+    [
+      # python-lsp-server
+      ipython
+    ];
+  nodejs-packages = with pkgs.nodePackages_latest;
+    [
+      # vscode-langservers-extracted
+      # typescript-language-server
+      js-beautify # used with Emacs' web-beautify
+    ];
   devpkgs = devenv.packages.x86_64-linux;
 in {
   imports = [
@@ -40,93 +43,94 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  home.packages = with pkgs; [
-    gnumake
-    cmake     # rquired by emacs to build vterm
-    gcc
-    git-extras
-    tmux      # TODO tune me
-    silver-searcher
+  home.packages = with pkgs;
+    [
+      gnumake
+      cmake # rquired by emacs to build vterm
+      gcc
+      git-extras
+      tmux # TODO tune me
+      silver-searcher
 
-    # Required for Emacs vterm
-    libvterm
-    libtool
+      # Required for Emacs vterm
+      libvterm
+      libtool
 
-    unzip   # crucial for company-tabnine to unzip the package
-    # otherwise you'll have an empty directory
+      unzip # crucial for company-tabnine to unzip the package
+      # otherwise you'll have an empty directory
 
-    killall
-    xorg.xkill
-    
-    htop
-    brave
-    slack
-    xclip
-    fzf
-    gnupg
-    ripgrep
+      killall
+      xorg.xkill
 
-    kitty
+      htop
+      brave
+      slack
+      xclip
+      fzf
+      gnupg
+      ripgrep
 
-    pinentry-gtk2
-    
-    ranger
-    direnv
-    rpi-imager
-    flameshot
-    keybase-gui
-    networkmanagerapplet
-    blueman
-    xss-lock
-    udiskie
-    betterlockscreen
-    brightnessctl
+      kitty
 
-    pulseaudioFull
-    obs-studio
-    vlc
-    gnome.gnome-tweaks
-    
-    yubikey-personalization
-    yubikey-manager
-    pcscliteWithPolkit
+      pinentry-gtk2
 
-    autorandr
+      ranger
+      direnv
+      rpi-imager
+      flameshot
+      keybase-gui
+      networkmanagerapplet
+      blueman
+      xss-lock
+      udiskie
+      betterlockscreen
+      brightnessctl
 
-    aws-vault
-    awscli2
-    ssm-session-manager-plugin
+      pulseaudioFull
+      obs-studio
+      vlc
+      gnome.gnome-tweaks
 
-    libreoffice
+      yubikey-personalization
+      yubikey-manager
+      pcscliteWithPolkit
 
-    hugo
+      autorandr
 
-    # Nix tools
-    comma      # Run binaries without installing them!
-    cachix     # Service for Nix binary cache hosting
+      aws-vault
+      awscli2
+      ssm-session-manager-plugin
 
-    # Python
-    (python3.withPackages python-packages)
+      libreoffice
 
-    bash-completion
-    # zsh-completions
-    docker-compose
-    # Modern CLI tools
-    # https://zaiste.net/posts/shell-commands-rust/
-    # dust
-    procs
-    bottom
-    tealdeer
-    bandwhich
-    zoxide
-    fd
-    rm-improved
-  ] ++ nodejs-packages ++ [devpkgs.devenv];
+      hugo
+
+      # Nix tools
+      comma # Run binaries without installing them!
+      cachix # Service for Nix binary cache hosting
+
+      # Python
+      (python3.withPackages python-packages)
+
+      bash-completion
+      # zsh-completions
+      docker-compose
+      # Modern CLI tools
+      # https://zaiste.net/posts/shell-commands-rust/
+      # dust
+      procs
+      bottom
+      tealdeer
+      bandwhich
+      zoxide
+      fd
+      rm-improved
+    ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
     starship.enable = true;
-    exa.enable = true;   # the ls replacement
-    
+    exa.enable = true; # the ls replacement
+
     bat = {
       enable = true;
       extraPackages = with pkgs.bat-extras; [ batdiff batman batwatch ];
@@ -137,7 +141,7 @@ in {
       nix-direnv.enable = true;
     };
   };
-  
+
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
@@ -149,9 +153,7 @@ in {
   services.keybase.enable = true;
 
   # TODO declarative configuration with secrets
-  services.syncthing = {
-    enable = true;
-  };  
+  services.syncthing = { enable = true; };
 
   xdg.mimeApps = {
     enable = true;

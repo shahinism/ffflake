@@ -8,21 +8,15 @@
     emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
     emacs-src.flake = false;
     devenv.url = "github:cachix/devenv/latest";
-    
-    home-manager = {                                                      # User Package Management
+
+    home-manager = { # User Package Management
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-    
-  outputs = { self,
-              nixpkgs,
-              nixos-hardware,
-              home-manager,
-              emacs-overlay,
-              emacs-src,
-              devenv
-            }: 
+
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, emacs-overlay
+    , emacs-src, devenv }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -33,8 +27,8 @@
           emacs-overlay.overlays.default
           (final: prev: {
             emacs29 = (prev.emacsGit.override {
-              
-            }).overrideAttrs(old: {
+
+            }).overrideAttrs (old: {
               name = "emacs29";
               version = "29.0-${emacs-src.shortRev}";
               src = emacs-src;
@@ -43,9 +37,7 @@
         ];
       };
       lib = nixpkgs.lib;
-      extraArgs = {
-        inherit devenv;
-      };
+      extraArgs = { inherit devenv; };
     in {
       nixosConfigurations = {
         system76 = lib.nixosSystem {
@@ -62,9 +54,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.shahin = { ... }: {
-                  imports = [
-                    ./home-manager/home.nix
-                  ];
+                  imports = [ ./home-manager/home.nix ];
                 };
                 extraSpecialArgs = extraArgs;
               };
@@ -86,9 +76,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.shahin = { ... }: {
-                  imports = [
-                    ./home-manager/home.nix
-                  ];
+                  imports = [ ./home-manager/home.nix ];
                 };
                 extraSpecialArgs = extraArgs;
               };

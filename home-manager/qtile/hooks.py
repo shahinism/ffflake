@@ -17,7 +17,8 @@ def autostart():
             subprocess.Popen(app_cmd, shell=True)
         except subprocess.CalledProcessError:
             logger.exception('Error while autostarting "%s" command', app_cmd)
-            
+
+
 # Reload config on screen changes
 @hook.subscribe.screens_reconfigured
 async def outputs_changed():

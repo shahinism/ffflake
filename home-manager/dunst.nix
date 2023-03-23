@@ -1,11 +1,12 @@
-{ ... }:
-{
+{ ... }: {
   services.dunst = {
     enable = true;
     settings = {
       global = {
         font = "Hack 9";
-        format = "<b>%s</b>\n%b";
+        format = ''
+          <b>%s</b>
+          %b'';
         sort = true;
         indicate_hidden = true;
         alignment = "center";

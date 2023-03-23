@@ -1,9 +1,9 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
 {
   # Kernel
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-  
+
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -33,7 +33,7 @@
 
   # Disable CUPS to print documents.
   services.printing.enable = false;
-  
+
   # Enable pcscd, required for Yubikey to act like smart card
   services.pcscd.enable = true;
   # Enable ssh-agent
@@ -64,12 +64,12 @@
     displayManager.lightdm = {
       enable = true;
       greeter.enable = true;
-	    # autoLogin.timeout = 0;
+      # autoLogin.timeout = 0;
     };
-	  displayManager.autoLogin.enable = true;
-	  displayManager.autoLogin.user = "shahin";
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "shahin";
     displayManager.defaultSession = "none+qtile";
-    
+
     # Enable the GNOME Desktop Environment.
     desktopManager.gnome.enable = true;
     # qtile
@@ -87,30 +87,27 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   # Automatic Nix garbage collection
-  nix.gc.automatic = true; 
+  nix.gc.automatic = true;
 
   # Enable experimental features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shahin = {
     shell = pkgs.bash;
     isNormalUser = true;
     description = "Shahin Azad";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      nixFlakes
-    ];
+    packages = with pkgs; [ nixFlakes ];
   };
 
   # dns servers
-  networking.nameservers = ["1.1.1.1" "1.0.0.1"];
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
   networking.resolvconf.enable = pkgs.lib.mkForce false;
   networking.dhcpcd.extraConfig = "nohook resolv.conf";
   networking.networkmanager.dns = "none";
   services.resolved.enable = false;
-  services.blueman.enable = true; 
-
+  services.blueman.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
