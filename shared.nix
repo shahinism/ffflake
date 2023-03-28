@@ -109,6 +109,53 @@
   services.resolved.enable = false;
   services.blueman.enable = true;
 
+  # It's needed to explicitly disable this, as this is enabled by
+  # default on Gnome, and prevents using tlp:
+  # https://discourse.nixos.org/t/cant-enable-tlp-when-upgrading-to-21-05/13435
+  services.power-profiles-daemon.enable = false;
+  services.tlp = {
+    enable = true;
+    settings = {
+      #https://linrunner.de/tlp/settings/platform.html
+      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_BAT = "low-power";
+
+      # https://discourse.nixos.org/t/how-to-switch-cpu-governor-on-battery-power/8446/4
+      # https://linrunner.de/tlp/settings/processor.html
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+      CPU_HWP_ON_AC = "balance_performance";
+      CPU_HWP_ON_BAT = "power";
+
+      CPU_MAX_PERF_ON_BAT = 30;
+
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
+
+      # https://github.com/linrunner/TLP/issues/122
+      # https://linrunner.de/tlp/settings/network.html
+      WIFI_PWR_ON_AC = "off";
+      WIFI_PWR_ON_BAT = "on";
+
+      CPU_HWP_DYN_BOOST_ON_AC = 1;
+      CPU_HWP_DYN_BOOST_ON_BAT = 0;
+
+      SCHED_POWERSAVE_ON_AC = 0;
+      SCHED_POWERSAVE_ON_BAT = 1;
+
+      # https://linrunner.de/tlp/settings/runtimepm.html
+      RUNTIME_PM_ON_AC = "on";
+      RUNTIME_PM_ON_BAT = "auto";
+
+      # https://linrunner.de/tlp/settings/usb.html
+      USB_BLACKLIST_BTUSB = 1;
+    };
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
