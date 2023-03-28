@@ -108,6 +108,7 @@ in {
       # Nix tools
       comma # Run binaries without installing them!
       cachix # Service for Nix binary cache hosting
+      nixos-option # Inspect NixOS configuration
 
       # Python
       (python3.withPackages python-packages)
