@@ -51,6 +51,8 @@ in {
       git-extras
       tmux # TODO tune me
       silver-searcher
+      nuspell # Used with Emacs as spell checker
+      hunspellDicts.en_US
 
       # Required for Emacs vterm
       libvterm
