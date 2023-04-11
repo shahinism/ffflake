@@ -102,11 +102,11 @@
   };
 
   # dns servers
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
-  networking.resolvconf.enable = pkgs.lib.mkForce false;
-  networking.dhcpcd.extraConfig = "nohook resolv.conf";
-  networking.networkmanager.dns = "none";
-  services.resolved.enable = false;
+  # networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  # networking.resolvconf.enable = pkgs.lib.mkForce false;
+  # networking.dhcpcd.extraConfig = "nohook resolv.conf";
+  # networking.networkmanager.dns = "none";
+  # services.resolved.enable = false;
   services.blueman.enable = true;
 
   # It's needed to explicitly disable this, as this is enabled by

@@ -51,6 +51,7 @@ in {
       git-extras
       tmux # TODO tune me
       silver-searcher
+      okular
 
       aspell # Used with Emacs as spell checker
       aspellDicts.en

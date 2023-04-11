@@ -39,5 +39,11 @@
         "icon": "fingerprint",
         "color": "orange",
         "name": "ess"
+    }, {
+        "userContextId": 11,
+        "public": true,
+        "icon": "fingerprint",
+        "color": "blue",
+        "name": "btg"
     }]
 }

@@ -53,3 +53,74 @@
 
 ;; Use fundamental-mode to have faster load for initial buffer
 (customize-set-variable 'initial-major-mode 'fundamental-mode)
+
+;; Straight
+(setq native-comp-deferred-compilation-deny-list nil)
+(setq straight-base-dir
+      (locate-user-emacs-file
+        (format "packages/%s/" emacs-version)))
+(setq straight-profiles
+      `((nil . ,(locate-user-emacs-file
+                 "straight/versions/default.el"))))
+
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        straight-base-dir))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(custom-set-variables '(straight-vc-git-default-clone-depth 150))
+
+
+;; <leaf-install-code>
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("melpa" . "https://melpa.org/packages/")
+                       ("gnu" . "https://elpa.gnu.org/packages/")))
+  (package-initialize)
+  (unless (package-installed-p 'leaf)
+    (package-refresh-contents)
+    (package-install 'leaf))
+
+  (leaf leaf-keywords
+    :ensure t
+    :init
+    ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
+    (straight-use-package 'hydra)
+    (straight-use-package 'el-get)
+    (straight-use-package 'blackout)
+
+    :config
+    ;; initialize leaf-keywords.el
+    (leaf-keywords-init))
+  
+  (leaf leaf-convert
+    :doc "Convert many format to leaf format"
+    :req "emacs-26.1" "leaf-3.6.0" "leaf-keywords-1.1.0" "ppp-2.1"
+    :tag "tools" "emacs>=26.1"
+    :url "https://github.com/conao3/leaf-convert.el"
+    :emacs>= 26.1
+    :straight t
+    :after leaf leaf-keywords ppp)
+  )
+
+(leaf diminish
+  :straight t
+  :require t
+  :diminish (show-paren-mode))
+
+(leaf feather
+  :ensure t
+  :diminish feather-mode
+  :config (feather-mode))
+
+;; </leaf-install-code>
