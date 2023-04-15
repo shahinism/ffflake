@@ -1,5 +1,4 @@
 ;;; init.el -*- lexical-binding: t; -*-
-
 (leaf vertico
   :doc "Completion interface"
   :url "https://github.com/minad/vertico/"
@@ -163,13 +162,18 @@
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (leaf tabnine-capf
-  :after cape
+  :require t
   :commands (tabnine-capf-install-binary
              tabnine-capf-restart-server)
   :straight (tabnine-capf :type git :host github :repo "50ways2sayhard/tabnine-capf" :files ("*.el" "*.sh"))
   :hook (kill-emacs . tabnine-capf-kill-process)
   :config
-  (add-to-list 'completion-at-point-functions #'tabnine-completion-at-point))
+  (add-hook 'python-mode-hook (lambda ()
+                                (message "Hi")
+                               (setq-local completion-at-point-functions
+                                           '(eglot-completion-at-point tabnine-completion-at-point))))
+  ;; (add-to-list 'completion-at-point-functions #'tabnine-completion-at-point)
+  )
 
 (setq-default abbrev-mode 1)
 
