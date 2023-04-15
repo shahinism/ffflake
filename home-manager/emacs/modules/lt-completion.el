@@ -113,17 +113,6 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles . (partial-completion))))))
 
-;; FIXME
-(leaf yasnippet
-  ;; :diminish yas-minor-mode
-  :hook (prog-mode . yas-minor-mode)
-  :config
-  (yas-reload-all))
-
-(leaf yasnippet-snippets
-  ;; :defer t
-  :after yasnippet)
-
 (leaf corfu
   :ensure t
   :custom
@@ -131,7 +120,7 @@
   (corfu-auto . t)
   (corfu-auto-prefix . 2)
   (corfu-auto-delay . 0.0)
-  (corfu-echo-documentation . 0.25)
+  (corfu-echo-documentation . 0.1)
   :config
   (require 'corfu-popupinfo)
   (require 'corfu)
@@ -165,22 +154,22 @@
               (corfu-mode)))
   )
 
-(leaf codeium
-  :straight (codeium :type git :host github :repo "Exafunction/codeium.el")
-  :init
-  ;; (add-hook 'prog-mode-hook
-  ;;     (lambda ()
-  ;;         (setq-local completion-at-point-functions '(codeium-completion-at-point))))
-
+(leaf kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-default-face . 'corfu-default) ; to comput blended backgrounds correctly
   :config
-  (setq use-dialog-box nil) ;; do not use popup boxes
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-  ;; use M-x codeium-diagnose to see apis/fields that would be sent to the local language server
-  (setq codeium-api-enabled
-        (lambda (api)
-          (memq api '(GetCompletions Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))))
-  )
-
+(leaf tabnine-capf
+  :after cape
+  :commands (tabnine-capf-install-binary
+             tabnine-capf-restart-server)
+  :straight (tabnine-capf :type git :host github :repo "50ways2sayhard/tabnine-capf" :files ("*.el" "*.sh"))
+  :hook (kill-emacs . tabnine-capf-kill-process)
+  :config
+  (add-to-list 'completion-at-point-functions #'tabnine-completion-at-point))
 
 (setq-default abbrev-mode 1)
 

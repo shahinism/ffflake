@@ -132,6 +132,11 @@ in {
       zoxide
       fd
       rm-improved
+
+      # AppImage
+      appimage-run
+
+      asciinema
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {

@@ -6,7 +6,7 @@
     userEmail = "hi@shahinism.com";
 
     signing = {
-      signByDefault = true;
+      # signByDefault = true;
       key = null; # set to null for GPG to decide
     };
 

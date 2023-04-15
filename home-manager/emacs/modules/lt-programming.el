@@ -29,16 +29,6 @@
   :ensure t
   :after tree-sitter)
 
-;;; Eglot
-;;  shutdown server when last managed buffer is killed
-;; (leaf eglot
-;;   :init
-;;   (customize-set-variable 'eglot-autoshutdown t)
-
-;;   ;; Disable flymake, I tend to use flycheck instead
-;;   (customize-set-variable 'eglot-stay-out-of '(flymake))
-;; )
-
 ;;; Flycheck
 (leaf flycheck
   :ensure t
@@ -52,25 +42,6 @@
   )
 
 (leaf devdocs :ensure t)
-
-;; Yasnippet
-(leaf yasnippet
-  :doc "Template system"
-  :url "https://github.com/joaotavora/yasnippet"
-  :ensure t
-  :hook
-  (prog-mode-hook . yas-minor-mode)
-  (org-mode-hook . yas-minor-mode)
-  :custom (yas-snippet-dirs . '("~/.emacs.d/snippets"))
-  :config (yas-reload-all))
-
-(leaf yasnippet-snippets
-  :after  yasnippet
-  :ensure t)
-
-(leaf consult-yasnippet
-  :after  yasnippet consult
-  :ensure t)
 
 ;; Linum
 (setq display-line-numbers-type 'relative)
@@ -168,5 +139,9 @@
 (leaf dockerfile-mode :ensure t)
 (leaf docker-compose-mode :ensure t)
 (leaf docker :ensure t)
+
+;; Code folding
+(leaf ts-fold
+  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold"))
 
 (provide 'lt-programming)
