@@ -54,6 +54,8 @@
 (save-place-mode +1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Tools ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package blackout)
+
 (use-package move-border
   :straight (:host github :repo "ramnes/move-border" :branch "master"))
 
@@ -130,8 +132,6 @@ accepted by `set-default-attribute'."
   :init
   (add-hook 'after-init-hook #'doom-modeline-mode))
 
-(use-package blackout)
-
 ;;;; helpful
 ;; Make `describe-*` screens more helpful!
 (use-package helpful
@@ -155,7 +155,20 @@ accepted by `set-default-attribute'."
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (load-theme 'doom-zenburn t))
+  (load-theme 'doom-dracula t))
+
+(use-package zenburn-theme
+  :disabled ;; With Embark description doesn't play well. The same
+            ;; goes with `doom-zenburn'.
+  :config
+  (setq
+   ;; use variable-pitch fonts for some headings and titles
+   zenburn-use-variable-pitch t
+   ;; scale headings in org-mode
+   zenburn-scale-headlines t
+   ;; scale headings in outline-mode
+   zenburn-scale-outline-headlines t)
+  (load-theme 'zenburn t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package hydra)
@@ -610,14 +623,14 @@ accepted by `set-default-attribute'."
   :after (consult eglot))
 
 (use-package rainbow-mode
-  :hook (prog-mode-hook . rainbow-mode))
+  :hook (prog-mode . rainbow-mode))
 
 (use-package rainbow-delimiters
-  :hook (prog-mode-hook . rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Fix trailing spaces but only in modified lines
 (use-package ws-butler
-  :hook   (prog-mode . ws-butler-mode))
+  :hook (prog-mode . ws-butler-mode))
 
 (use-package yaml-mode)
 
@@ -631,7 +644,7 @@ accepted by `set-default-attribute'."
 (use-package eglot
   :commands eglot eglot-ensure
   :hook
-  (python-mode-hook . eglot-ensure)
+  (python-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-stay-out-of 'company)
   ;; Shutdown server when last managed buffer is killed
@@ -645,8 +658,63 @@ accepted by `set-default-attribute'."
   )
 
 (use-package projectile
+  :blackout
   :init
   (projectile-mode +1))
 
 (use-package counsel-projectile
   :after (counsel projectile))
+
+;;;; Python
+(defun python-doc ()
+  (interactive)
+  (setq-local devdocs-current-docs '("python-3.11")))
+
+(add-hook 'python-mode-hook #'eldoc-mode)
+
+(when (fboundp #'devdocs-lookup)
+  (add-hook 'python-mode-hook #'python-doc))
+
+(use-package anaconda-mode
+  :hook
+  (python-mode . anaconda-mode)
+  :config
+  ;;  Move anaconda python installation directory to user var/
+  (customize-set-variable
+   'anaconda-mode-installation-directory
+   (expand-file-name "anaconda-mode" lt/config-var-dir))
+  )
+
+(use-package blacken
+  :hook
+  (python-mode . blacken-mode))
+
+;; (use-package python-mode
+;;   :custom
+;;   (python-indent-guess-indent-offset-verbose nil))
+
+(use-package numpydoc
+  :custom
+  (numpydoc-insert-examples-block nil)
+  (numpydoc-template-long nil))
+
+(use-package pyimport
+  :bind
+  (:map python-mode-map
+        ("C-c C-i" . pyimport-insert-missing)))
+
+;; Requires `importmagic' and `epc' packages to be available in the
+;; `PATH'.
+(use-package importmagic
+  :disabled  ; drastically slows down the instance!
+  :bind
+  (:map importmagic-mode-map
+        ("C-c C-f" . importmagic-fix-symbol-at-point))
+  :hook
+  (python-mode-hook 'importmagic-mode)
+  )
+
+(use-package pyimpsort
+  :bind
+  (:map python-mode-map
+        ("C-c C-u" . pyimpsort-buffer)))
