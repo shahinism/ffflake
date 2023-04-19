@@ -219,8 +219,8 @@ accepted by `set-default-attribute'."
     ("_" split-window-vertically-instead "vertically instead"))
 
    "Zoom"
-   (("+" zoom-in "in" :color amaranth)
-    ("-" zoom-out "out" :color amaranth)
+   (("i" zoom-in "in" :color amaranth)
+    ("o" zoom-out "out" :color amaranth)
     ("0" (lambda ()
            (interactive)
            (zoom-in/out 0)) "reset"))))
