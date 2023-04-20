@@ -292,10 +292,10 @@ accepted by `set-default-attribute'."
 (pretty-hydra-define hydra-goto
   (:title " Goto" :color blue :quit-key "q" :foreign-keys warn :separator "-")
   ("Got"
-   (("i" avy-goto-char       "char")
+   (("j" avy-goto-char       "char")
     ("t" avy-goto-char-timer "timer")
-    ("w" avy-goto-word-2     "word")
-    ("j" avy-resume "resume"))
+    ("w" avy-goto-word-1     "word")
+    ("r" avy-resume "resume"))
    "Line"
    (("h" avy-goto-line        "head")
     ("e" avy-goto-end-of-line "end")
@@ -323,8 +323,9 @@ accepted by `set-default-attribute'."
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; SPC j/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
+   ;; '("j" . "H-j")
+   ;; '("k" . "H-k")
+   '("j" . hydra-goto/body)
 
    '("." . point-to-register)
    '(">" . jump-to-register)
