@@ -194,8 +194,8 @@ accepted by `set-default-attribute'."
   (:title "  Windows" :color blue :quit-key "q")
   ("Actions"
    (("TAB" other-window "switch")
-    ("x" ace-delete-window "delete" :color amaranth)
-    ("d" ace-delete-other-windows "maximize")
+    ("d" ace-delete-window "delete" :color amaranth)
+    ("m" ace-delete-other-windows "maximize")
     ("s" ace-swap-window "swap")
     ("a" ace-select-window "select"))
    "Move"

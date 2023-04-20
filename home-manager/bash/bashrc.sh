@@ -102,7 +102,7 @@ shopt -s checkjobs
 
 ### Functions ###
 docker-clean () {
-    docker volume rm $(docuer volume ls -qf dangling=true) || echo "No volume to clean!"
+    docker volume rm $(docker volume ls -qf dangling=true) || echo "No volume to clean!"
     docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }') || echo "No network to clean!"
     # see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
     docker rmi $(docker images --filter "dangling=true" -q --no-trunc) || echo "No dangling images to clean!"
