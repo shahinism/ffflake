@@ -806,3 +806,5 @@ accepted by `set-default-attribute'."
 
   (customize-set-variable 'org-download-image-dir "images")
   )
+
+(use-package exercism)
