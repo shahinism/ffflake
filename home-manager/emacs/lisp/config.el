@@ -190,6 +190,14 @@ accepted by `set-default-attribute'."
    (("df" consult-find-doc "find")
     ("dd" consult-grep-doc "grep"))))
 
+(pretty-hydra-define hydra-file
+  (:title " File" :color blue :quit-key "q")
+  ("Open"
+   (("f" find-file "Open File")
+    ("r" recentf "Find recent file"))
+   "Operation"
+   (("n" crux-rename-file-and-buffer "Rename file and buffer"))))
+
 (pretty-hydra-define hydra-window
   (:title "  Windows" :color blue :quit-key "q")
   ("Actions"
@@ -278,9 +286,12 @@ accepted by `set-default-attribute'."
   ("Actions"
    (("c" org-capture "Capture")
     ("a" org-agenda "Show Agenda")
-    ("r" org-refile "Refile current entry")
-    ("d" org-refile-copy "Duplicate current entry")
+    ("rr" org-refile "Refile current entry")
+    ("rd" org-refile-copy "Duplicate current entry")
     ("o" (find-file "~/org/todo.org")))
+   "Download"
+   (("ds" org-download-screenshot "Insert screenshot")
+    ("dc" org-download-clipboard "Attach image from clipboard"))
    "Roam"
    (("n" org-roam-node-find "Find roam node"))))
 
@@ -326,6 +337,7 @@ accepted by `set-default-attribute'."
    ;; '("j" . "H-j")
    ;; '("k" . "H-k")
    '("j" . hydra-goto/body)
+   '("f" . hydra-file/body)
 
    '("." . point-to-register)
    '(">" . jump-to-register)
@@ -719,3 +731,78 @@ accepted by `set-default-attribute'."
   :bind
   (:map python-mode-map
         ("C-c C-u" . pyimpsort-buffer)))
+
+
+;;
+;; => Org
+;;
+(use-package org
+  :ensure t
+  :config
+  (require 'org-tempo) ;; enable org templates; by default it's disabled
+  ;; on Org > 9.2, more info:
+  ;; https://emacs.stackexchange.com/a/46992
+
+  (setq org-startup-indented t
+        org-startup-folded t
+        org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
+        org-use-speed-commands t
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-directory "~/org"
+        org-agenda-files (list "~/org")
+        org-log-refile t
+        org-refile-use-outline-path t
+        org-outline-path-complete-in-steps nil
+        org-refile-targets
+        '((org-agenda-files . (:maxlevel . 2)))
+        org-capture-templates
+        '(("t" "Task Entry"        entry
+           (file+headline "~/org/todo.org" "Inbox")
+           "* [ ] %?
+:PROPERTIES:
+:Added:     %U
+:END:" :empty-lines 0)
+          ))
+
+   ;; Return or left-click with mouse should follow links
+  (customize-set-variable 'org-return-follows-link t)
+  (customize-set-variable 'org-mouse-1-follows-link t)
+
+  ;; Display links as the description provided
+  (customize-set-variable 'org-descriptive-links t)
+
+  ;; Hide markup markers
+  (customize-set-variable 'org-hide-emphasis-markers t)
+
+  ;; disable auto-pairing of "<" in org mode
+  (add-hook 'org-mode-hook (lambda ()
+                             (setq-local electric-pair-inhibit-predicate
+                                         `(lambda (c)
+                                            (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+  (with-eval-after-load 'org
+    (org-indent-mode t)
+    (require 'org-id))
+  )
+
+(use-package org-appear
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'org-appear-mode)
+  )
+
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook #'org-bullets-mode)
+  )
+
+(use-package org-download
+  :config
+  (setq org-download-method 'directory
+        org-download-heading-lvl nil
+        org-download-timestamp "_%Y%m%d-%H%M%S"
+        org-image-actual-width t
+        org-download-screenshot-method "flameshot gui --raw > %s")
+
+  (customize-set-variable 'org-download-image-dir "images")
+  )

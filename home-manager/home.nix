@@ -135,8 +135,11 @@ in {
 
       # AppImage
       appimage-run
-
+      jq
       asciinema
+
+      anki-bin
+      exercism
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
