@@ -140,6 +140,10 @@ in {
 
       anki-bin
       exercism
+
+      # Common Lisp
+      sbcl
+      rlwrap
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {

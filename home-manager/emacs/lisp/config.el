@@ -616,6 +616,12 @@ accepted by `set-default-attribute'."
   :custom
   (flycheck-display-errors-delay 0))
 
+(use-package flycheck-color-mode-line
+  :after flycheck
+  :defer t
+  :hook
+  (flycheck-mode . flycheck-color-mode-line-mode))
+
 (use-package devdocs
   ;; TODO config me
   )
@@ -807,4 +813,13 @@ accepted by `set-default-attribute'."
   (customize-set-variable 'org-download-image-dir "images")
   )
 
+;;
+;; -> Common Lisp
+;;
+(use-package sly
+  :custom
+  (inferior-lisp-program "sbcl"))
+;;
+;; -> Exercism
+;;
 (use-package exercism)
