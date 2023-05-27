@@ -144,6 +144,10 @@ in {
       # Common Lisp
       sbcl
       rlwrap
+
+      mosh
+      # magic-wormhole
+      # sshuttle
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {

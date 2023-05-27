@@ -616,12 +616,6 @@ accepted by `set-default-attribute'."
   :custom
   (flycheck-display-errors-delay 0))
 
-(use-package flycheck-color-mode-line
-  :after flycheck
-  :defer t
-  :hook
-  (flycheck-mode . flycheck-color-mode-line-mode))
-
 (use-package devdocs
   ;; TODO config me
   )
