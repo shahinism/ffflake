@@ -26,9 +26,8 @@
   };
 
   fonts.fonts = with pkgs; [
-    roboto
     emacs-all-the-icons-fonts
-    (nerdfonts.override { fonts = [ "FiraCode" "Hack" ]; })
+    (nerdfonts.override { fonts = [ "Inconsolata" "FiraCode" "Hack" ]; })
   ];
 
   # Disable CUPS to print documents.
@@ -107,6 +106,8 @@
   # networking.dhcpcd.extraConfig = "nohook resolv.conf";
   # networking.networkmanager.dns = "none";
   # services.resolved.enable = false;
+
+  # Bluetooth
   services.blueman.enable = true;
 
   # It's needed to explicitly disable this, as this is enabled by

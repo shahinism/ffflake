@@ -34,12 +34,12 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29;
+    package = pkgs.emacs-unstable;
   };
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacs29;
+    package = pkgs.emacs-unstable;
   };
 
   home.file = {

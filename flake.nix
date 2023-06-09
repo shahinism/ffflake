@@ -2,7 +2,7 @@
   description = "My Personal Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
@@ -30,7 +30,7 @@
 
             }).overrideAttrs (old: {
               name = "emacs29";
-              version = "29.0-${emacs-src.shortRev}";
+              version = "29.0-90";
               src = emacs-src;
             });
           })

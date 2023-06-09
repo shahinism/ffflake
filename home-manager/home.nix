@@ -146,8 +146,8 @@ in {
       rlwrap
 
       mosh
-      # magic-wormhole
-      # sshuttle
+      magic-wormhole
+      sshuttle
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {

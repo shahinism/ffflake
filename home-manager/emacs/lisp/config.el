@@ -817,3 +817,12 @@ accepted by `set-default-attribute'."
 ;; -> Exercism
 ;;
 (use-package exercism)
+
+;;
+;; -> SQL
+;;
+(use-package sql
+  ;; FIXME it's not working
+  :mode "\\.k?sql\\'")
+
+;; TODO add https://github.com/purcell/sqlformat
