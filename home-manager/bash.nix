@@ -24,4 +24,8 @@
     bashrcExtra = "source ${./bash/bashrc.sh}";
     profileExtra = "source ${./bash/profile.sh}";
   };
+
+  home.file = {
+    ".local/bin/nix-clean" = { source = ./. + "/bash/scripts/nix-clean"; };
+  };
 }

@@ -21,7 +21,7 @@ mod = "mod4"  # Sets mod key to SUPER/WINDOWS
 mod1 = "mod1"
 
 launcher = 'rofi -show combi -combi-modi "drun,run"'
-font = "RobotoMono Nerd Font"
+font = "Hack Nerd Font"
 
 import subprocess
 import os
@@ -234,9 +234,7 @@ prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 
 ##### DEFAULT WIDGET SETTINGS #####
-widget_defaults = dict(
-    font="RobotoMono Nerd Font", fontsize=14, padding=5, background=colors[2]
-)
+widget_defaults = dict(font=font, fontsize=14, padding=5, background=colors[2])
 extension_defaults = widget_defaults.copy()
 
 
@@ -287,7 +285,7 @@ def init_widgets_list():
             background=Colors.background,
             # TODO make me float
             mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("kitty -e htop")},
-            fmt=" {}",
+            fmt="󰍛 {}",
             **default_args,
         ),
         sep,
@@ -305,7 +303,7 @@ def init_widgets_list():
             lower_volume_shell_cmd=LOWER_SPEAKERS_VOLUME_SHELL_CMD,
             get_muted_status_shell_cmd=ARE_SPEAKERS_MUTED_SHELL_CMD,
             toggle_mute_shell_cmd=TOGGLE_SPEAKERS_MUTE_SHELL_CMD,
-            icons={"muted": "婢", "low": "奄", "medium": "奔", "high": "墳"},
+            icons={"muted": "󰝟", "low": "󰖀", "medium": "󰕾", "high": ""},
             update_interval=1,
         ),
         widgets.Volume(
@@ -316,7 +314,7 @@ def init_widgets_list():
             lower_volume_shell_cmd=LOWER_MICROPHONE_VOLUME_SHELL_CMD,
             get_muted_status_shell_cmd=IS_MICROPHONE_MUTED_SHELL_CMD,
             toggle_mute_shell_cmd=TOGGLE_MICROPHONE_MUTE_SHELL_CMD,
-            icons={"muted": "", "low": "", "medium": "", "high": ""},
+            icons={"muted": "", "low": "󰢳", "medium": "󰍬", "high": "󰢴"},
             update_interval=1,
         ),
         sep,
@@ -328,7 +326,8 @@ def init_widgets_list():
             background=Colors.background,
             backlight_name="intel_backlight",  # Directory name in /sys/class/backlight which provides backlight control interface
             change_command="brightnessctl set {}%",
-            format=" {percent:2.0%}",
+            format="󰚵 {percent:2.0%}",
+            **default_args,
         ),
         sep,
         widget.Systray(background=colors[0], padding=5),

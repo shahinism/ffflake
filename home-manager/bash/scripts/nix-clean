@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+nix-clean () {
+    # https://discourse.nixos.org/t/what-to-do-with-a-full-boot-partition/2049/2
+    sudo nix-env --delete-generations old
+    sudo nix-store --gc
+    sudo nix-channel --update
+    sudo nix-env -u --always
+    sudo nix-collect-garbage -d
+}
+
+nix-clean

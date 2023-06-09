@@ -13,33 +13,33 @@ class Battery(widget.Battery):
     Widget to display battery icon depending on battery state
     """
 
-    FULL_BATTERY_ICON = ""
-    EMPTY_BATTERY_ICON = ""
-    UNKNOWN_BATTERY_ICON = ""
+    FULL_BATTERY_ICON = "󱈏"
+    EMPTY_BATTERY_ICON = "󱉞"
+    UNKNOWN_BATTERY_ICON = "󰂑"
 
     CHARGING_ICONS = {
-        10: "",
-        20: "",
-        30: "",
-        40: "",
-        50: "",
-        60: "",
-        70: "",
-        80: "",
-        90: "",
+        10: "󰢜",
+        20: "󰂆",
+        30: "󰂇",
+        40: "󰂈",
+        50: "󰢝",
+        60: "󰂉",
+        70: "󰢞",
+        80: "󰂊",
+        90: "󰂋",
         100: FULL_BATTERY_ICON,
     }
 
     DISCHARGING_ICONS = {
-        10: "",
-        20: "",
-        30: "",
-        40: "",
-        50: "",
-        60: "",
-        70: "",
-        80: "",
-        90: "",
+        10: "󰁺",
+        20: "󰁻",
+        30: "󰁼",
+        40: "󰁽",
+        50: "󰁾",
+        60: "󰁿",
+        70: "󰂀",
+        80: "󰂁",
+        90: "󰂂",
         100: FULL_BATTERY_ICON,
     }
 
