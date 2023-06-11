@@ -53,6 +53,7 @@ in {
       silver-searcher
       okular
 
+      nodejs # required by copilot
       aspell # Used with Emacs as spell checker
       aspellDicts.en
       aspellDicts.en-science

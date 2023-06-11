@@ -582,9 +582,17 @@ accepted by `set-default-attribute'."
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package company-tabnine
-  :init
-  (add-to-list 'company-backends #'company-tabnine))
+;; (use-package company-tabnine
+;;   :init
+;;   (add-to-list 'company-backends #'company-tabnine))
+
+(use-package copilot
+  :hook (prog-mode . copilot-mode)
+  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
+  :config
+  (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "C-;") 'copilot-accept-completion-by-word))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Programming ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Show the name of the current function definition in the modeline
@@ -792,11 +800,13 @@ accepted by `set-default-attribute'."
   )
 
 (use-package org-bullets
+  :after org
   :config
   (add-hook 'org-mode-hook #'org-bullets-mode)
   )
 
 (use-package org-download
+  :after org
   :config
   (setq org-download-method 'directory
         org-download-heading-lvl nil
