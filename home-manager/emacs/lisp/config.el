@@ -582,6 +582,37 @@ accepted by `set-default-attribute'."
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package yasnippet
+  :blackout
+  :hook (after-init . yas-global-mode)
+  :config
+  (yas-reload-all))
+
+(use-package yasnippet-snippets
+  :after yasnippet
+  :config (yasnippet-snippets-initialize))
+
+(use-package ivy-yasnippet
+  :after (ivy yasnippet))
+
+(use-package emmet-mode
+  :hook ((sgml-mode . emmet-mode)
+         (css-mode . emmet-mode)
+         (web-mode . emmet-mode)
+         (html-mode . emmet-mode)))
+
+(use-package web-mode
+  :mode ("\\.html?\\'"
+         "\\.php\\'"
+         "\\.xml\\'")
+  :config
+  (progn
+    (setq web-mode-engines-alist '(("hugo" . ".*hugo.*\\(html\\|xml\\)\\'")))))
+
+(use-package doom-snippets
+  :after yasnippet
+  :straight (:host github :repo "hlissner/doom-snippets" :files ("*.el" "snippets")))
+
 ;; (use-package company-tabnine
 ;;   :init
 ;;   (add-to-list 'company-backends #'company-tabnine))
@@ -847,3 +878,13 @@ accepted by `set-default-attribute'."
   :mode "\\.k?sql\\'")
 
 ;; TODO add https://github.com/purcell/sqlformat
+
+;;
+;; -> TypeScript
+;;
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook
+  (typescript-mode . tree-sitter-hl-mode)
+  :config
+  (setq typescript-indent-level 2))
