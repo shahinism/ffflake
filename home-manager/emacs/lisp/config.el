@@ -634,7 +634,10 @@ accepted by `set-default-attribute'."
   :config
   (setq chatgpt-shell-openai-key
       (lambda ()
-        (auth-source-pick-first-password :host "api.openai.com"))))
+        (auth-source-pick-first-password :host "api.openai.com"))
+      chatgpt-shell-streaming t
+      chatgpt-shell-model-version "gpt-3.5-turbo"
+      chatgpt-shell-request-timeout 300000))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Programming ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Show the name of the current function definition in the modeline
