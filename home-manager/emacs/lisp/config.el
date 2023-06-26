@@ -198,6 +198,16 @@ accepted by `set-default-attribute'."
    "Operation"
    (("n" crux-rename-file-and-buffer "Rename file and buffer"))))
 
+(pretty-hydra-define hydra-chat
+  (:title " Chat-GPT" :color blue :quit-key "q")
+  ("Shell"
+   (("s" chatgpt-shell "Start shell"))
+  "Code"
+   (("d" chatgpt-shell-describe-code "Describe code")
+    ("r" chatgpt-shell-refactor-code "Refactor code")
+    ("u" chatgpt-shell-generate-unit-test "Generate Unit Tests")))
+   )
+
 (pretty-hydra-define hydra-window
   (:title "  Windows" :color blue :quit-key "q")
   ("Actions"
@@ -339,6 +349,7 @@ accepted by `set-default-attribute'."
    '("j" . hydra-goto/body)
    '("f" . hydra-file/body)
 
+   '("z" . hydra-chat/body)
    '("." . point-to-register)
    '(">" . jump-to-register)
    '("p" . hydra-projectile/body)
