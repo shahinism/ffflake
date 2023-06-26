@@ -888,3 +888,14 @@ accepted by `set-default-attribute'."
   (typescript-mode . tree-sitter-hl-mode)
   :config
   (setq typescript-indent-level 2))
+
+;;
+;; -> Go
+;;
+(use-package go-mode
+  :mode "\\.go\\'"
+  :hook
+  (go-mode . tree-sitter-hl-mode)
+  :config
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save))
