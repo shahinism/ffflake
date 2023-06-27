@@ -53,6 +53,10 @@
 ;; Remember the position in the buffer
 (save-place-mode +1)
 
+;; https://github.com/jwiegley/use-package/issues/436
+(require 'bind-key)
+(require 'use-package)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Tools ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package blackout)
 
@@ -556,6 +560,7 @@ accepted by `set-default-attribute'."
   (add-to-list 'completion-at-point-functions #'tabnine-completion-at-point))
 
 (use-package company
+  :after yasnippet
   :blackout
   :init
   (setq company-minimum-prefix-length 1
@@ -722,6 +727,9 @@ accepted by `set-default-attribute'."
   :commands eglot eglot-ensure
   :hook
   (python-mode . eglot-ensure)
+  (go-mode . eglot-ensure)
+  (typescript-mode . eglot-ensure)
+  (js-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-stay-out-of 'company)
   ;; Shutdown server when last managed buffer is killed
