@@ -2,7 +2,29 @@
 
 (provide 'config)
 
+;; Define the user configuration var and etc folders and ensure they
+;; exist:
+(defvar lt/config-etc-dir (expand-file-name "etc/" user-emacs-directory)
+  "The user's configuration etc/ folder")
+(defvar lt/config-var-dir (expand-file-name "var/" user-emacs-directory)
+  "The user's configuration var/ folder")
+
+(unless (file-exists-p lt/config-etc-dir)
+  (mkdir lt/config-etc-dir))
+
+(unless (file-exists-p lt/config-var-dir)
+  (mkdir lt/config-var-dir))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;; Defaults ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Set default coding system
+(set-default-coding-systems 'utf-8)
+
+;; Visually flash instead of beep!
+(customize-set-variable 'visible-bell 1)
+
+;; Change to around ~100 MB
+(customize-set-variable 'large-file-warning-threshold (* 100 1000 1000))
+
 ;; Revert Dired and other buffers
 (customize-set-variable 'global-auto-revert-non-file-buffers t)
 
@@ -58,6 +80,85 @@
 (require 'use-package)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Tools ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; => Org
+;;
+(use-package org
+  :ensure t
+  :config
+  (require 'org-tempo) ;; enable org templates; by default it's disabled
+  ;; on Org > 9.2, more info:
+  ;; https://emacs.stackexchange.com/a/46992
+
+  (setq org-startup-indented t
+        org-startup-folded t
+        org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
+        org-use-speed-commands t
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-directory "~/org"
+        org-agenda-files (list "~/org")
+        org-log-refile t
+        org-refile-use-outline-path t
+        org-outline-path-complete-in-steps nil
+        org-refile-targets
+        '((org-agenda-files . (:maxlevel . 2)))
+        org-capture-templates
+        '(("t" "Task Entry"        entry
+           (file+headline "~/org/todo.org" "Inbox")
+           "* [ ] %?
+:PROPERTIES:
+:Added:     %U
+:END:" :empty-lines 0)
+          ))
+
+   ;; Return or left-click with mouse should follow links
+  (customize-set-variable 'org-return-follows-link t)
+  (customize-set-variable 'org-mouse-1-follows-link t)
+
+  ;; Display links as the description provided
+  (customize-set-variable 'org-descriptive-links t)
+
+  ;; Hide markup markers
+  (customize-set-variable 'org-hide-emphasis-markers t)
+
+  ;; disable auto-pairing of "<" in org mode
+  (add-hook 'org-mode-hook (lambda ()
+                             (setq-local electric-pair-inhibit-predicate
+                                         `(lambda (c)
+                                            (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+  (with-eval-after-load 'org
+    (org-indent-mode t)
+    (require 'org-id))
+  )
+
+(use-package org-appear
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'org-appear-mode)
+  )
+
+(use-package org-bullets
+  :after org
+  :config
+  (add-hook 'org-mode-hook #'org-bullets-mode)
+  )
+
+(use-package org-download
+  :after org
+  :config
+  (setq org-download-method 'directory
+        org-download-heading-lvl nil
+        org-download-timestamp "_%Y%m%d-%H%M%S"
+        org-image-actual-width t
+        org-download-screenshot-method "flameshot gui --raw > %s")
+
+  (customize-set-variable 'org-download-image-dir "images")
+  )
+
+;;
+;; => Handy
+;;
 (use-package blackout)
 
 (use-package move-border
@@ -689,9 +790,7 @@ accepted by `set-default-attribute'."
   ;; TODO config me
   )
 
-(use-package magit
-  :init
-  (setq magit-auto-revert-mode nil))
+(use-package magit)
 
 (use-package markdown-mode)
 (use-package dumb-jump) ;; TODO config dumb-jump binding
@@ -764,6 +863,7 @@ accepted by `set-default-attribute'."
   :hook
   (python-mode . anaconda-mode)
   :config
+
   ;;  Move anaconda python installation directory to user var/
   (customize-set-variable
    'anaconda-mode-installation-directory
@@ -803,83 +903,6 @@ accepted by `set-default-attribute'."
   :bind
   (:map python-mode-map
         ("C-c C-u" . pyimpsort-buffer)))
-
-
-;;
-;; => Org
-;;
-(use-package org
-  :ensure t
-  :config
-  (require 'org-tempo) ;; enable org templates; by default it's disabled
-  ;; on Org > 9.2, more info:
-  ;; https://emacs.stackexchange.com/a/46992
-
-  (setq org-startup-indented t
-        org-startup-folded t
-        org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
-        org-use-speed-commands t
-        org-src-fontify-natively t
-        org-src-tab-acts-natively t
-        org-directory "~/org"
-        org-agenda-files (list "~/org")
-        org-log-refile t
-        org-refile-use-outline-path t
-        org-outline-path-complete-in-steps nil
-        org-refile-targets
-        '((org-agenda-files . (:maxlevel . 2)))
-        org-capture-templates
-        '(("t" "Task Entry"        entry
-           (file+headline "~/org/todo.org" "Inbox")
-           "* [ ] %?
-:PROPERTIES:
-:Added:     %U
-:END:" :empty-lines 0)
-          ))
-
-   ;; Return or left-click with mouse should follow links
-  (customize-set-variable 'org-return-follows-link t)
-  (customize-set-variable 'org-mouse-1-follows-link t)
-
-  ;; Display links as the description provided
-  (customize-set-variable 'org-descriptive-links t)
-
-  ;; Hide markup markers
-  (customize-set-variable 'org-hide-emphasis-markers t)
-
-  ;; disable auto-pairing of "<" in org mode
-  (add-hook 'org-mode-hook (lambda ()
-                             (setq-local electric-pair-inhibit-predicate
-                                         `(lambda (c)
-                                            (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
-  (with-eval-after-load 'org
-    (org-indent-mode t)
-    (require 'org-id))
-  )
-
-(use-package org-appear
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'org-appear-mode)
-  )
-
-(use-package org-bullets
-  :after org
-  :config
-  (add-hook 'org-mode-hook #'org-bullets-mode)
-  )
-
-(use-package org-download
-  :after org
-  :config
-  (setq org-download-method 'directory
-        org-download-heading-lvl nil
-        org-download-timestamp "_%Y%m%d-%H%M%S"
-        org-image-actual-width t
-        org-download-screenshot-method "flameshot gui --raw > %s")
-
-  (customize-set-variable 'org-download-image-dir "images")
-  )
 
 ;;
 ;; -> Common Lisp
