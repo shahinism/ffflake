@@ -17,6 +17,7 @@ let
 in {
   imports = [
     ./firefox.nix
+    ./nushell.nix
     ./bash.nix
     ./aliases.nix
     ./git.nix

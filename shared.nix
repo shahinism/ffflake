@@ -129,7 +129,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shahin = {
-    shell = pkgs.bash;
+    shell = pkgs.nushell;
     isNormalUser = true;
     description = "Shahin Azad";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
