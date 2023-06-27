@@ -849,6 +849,9 @@ accepted by `set-default-attribute'."
 (use-package consult-projectile
   :after (consult projectile))
 
+(use-package counsel-projectile
+  :after (counsel projectile))
+
 ;;;; Python
 (defun python-doc ()
   (interactive)
