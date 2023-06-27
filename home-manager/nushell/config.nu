@@ -174,16 +174,9 @@ let light_theme = {
     shape_vardecl: purple
 }
 
-# External completer example
-# let carapace_completer = {|spans|
-#     carapace $spans.0 nushell $spans | from json
-# }
-
 
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
-  # true or false to enable or disable the welcome banner at startup
-  show_banner: true
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
     clickable_links: true # enable or disable clickable links. Your terminal has to support links.
@@ -552,4 +545,25 @@ let-env config = {
       $direnv | load-env
     }]
   }
+}
+
+# carapace
+let-env PATH = ($env.PATH | prepend "/home/shahin/.config/carapace/bin")
+
+let carapace_completer = {|spans|
+  carapace $spans.0 nushell $spans | from json
+}
+
+let-env config = {
+  completions: {
+    external: {
+      enable: true
+      completer: $carapace_completer
+    }
+  }
+}
+
+# Override
+let-env config = {
+  show_banner: false
 }
