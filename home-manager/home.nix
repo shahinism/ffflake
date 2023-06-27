@@ -18,6 +18,7 @@ in {
   imports = [
     ./firefox.nix
     ./nushell.nix
+    ./kitty.nix
     ./bash.nix
     ./aliases.nix
     ./git.nix
@@ -78,8 +79,6 @@ in {
       fzf
       gnupg
       ripgrep
-
-      kitty
 
       pinentry-gtk2
 
