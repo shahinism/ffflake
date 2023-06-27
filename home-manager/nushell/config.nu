@@ -567,3 +567,23 @@ let-env config = {
 let-env config = {
   show_banner: false
 }
+
+# Aliases
+alias l = ls
+alias ll = ls -l
+alias la = ls -a
+alias lla = ls -la
+alias . = cd ..
+alias .. = cd ../..
+alias ... = cd ../../..
+alias c = xclip -selection clipboard
+alias cat = bat
+alias e = emacsclient -nw
+alias ed = emacsclient
+alias flighton = sudo rfkill block all
+alias flightoff = sudo rfkill unblock all
+alias man = batman
+alias tf = terraform
+alias top = btm
+alias watch = batwatch
+alias wget = wget -c # Resume by default
