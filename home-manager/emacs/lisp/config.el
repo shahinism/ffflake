@@ -944,3 +944,11 @@ accepted by `set-default-attribute'."
   :config
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save))
+
+;;
+;; -> Nu
+;;
+(use-package nushell-mode
+  :mode "\\.nu\\'"
+  :hook
+  (nu-mode . tree-sitter-hl-mode))
