@@ -174,9 +174,13 @@ let light_theme = {
     shape_vardecl: purple
 }
 
+let carapace_completer = {|spans|
+  carapace $spans.0 nushell $spans | from json
+}
 
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
+  show_banner: false # show the nushell banner when starting
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
     clickable_links: true # enable or disable clickable links. Your terminal has to support links.
@@ -269,7 +273,7 @@ let-env config = {
     external: {
       enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
       max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-      completer: null # check 'carapace_completer' above as an example
+      completer: $carapace_completer
     }
   }
   filesize: {
@@ -294,7 +298,9 @@ let-env config = {
 
   hooks: {
     pre_prompt: [{||
-      null  # replace with source code to run before the prompt is shown
+      let direnv = (direnv export json | from json)
+      let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
+      $direnv | load-env
     }]
     pre_execution: [{||
       null  # replace with source code to run before the repl input is run
@@ -536,37 +542,6 @@ let-env config = {
 
 source ~/.zoxide.nu
 source ~/.cache/starship/init.nu
-# direnv
-let-env config = {
-  hooks: {
-    pre_prompt: [{ ||
-      let direnv = (direnv export json | from json)
-      let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
-      $direnv | load-env
-    }]
-  }
-}
-
-# carapace
-let-env PATH = ($env.PATH | prepend "/home/shahin/.config/carapace/bin")
-
-let carapace_completer = {|spans|
-  carapace $spans.0 nushell $spans | from json
-}
-
-let-env config = {
-  completions: {
-    external: {
-      enable: true
-      completer: $carapace_completer
-    }
-  }
-}
-
-# Override
-let-env config = {
-  show_banner: false
-}
 
 # Aliases
 alias l = ls
