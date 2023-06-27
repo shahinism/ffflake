@@ -384,8 +384,8 @@ accepted by `set-default-attribute'."
    "File/Buffer"
     (("c"   projectile-invalidate-cache)
      ("d"   consult-projectile-find-dir)
-     ("fF"  consult-projectile-find-file)
-     ("ff"  projectile-find-file-dwim)
+     ("fF"  projectile-find-file-dwim)
+     ("ff"  consult-projectile-find-file)
      ("fd"  projectile-find-file-in-directory)
      ("g"   ggtags-update-tags)
      ("i"   projectile-ibuffer)
@@ -846,8 +846,8 @@ accepted by `set-default-attribute'."
   :init
   (projectile-mode +1))
 
-(use-package counsel-projectile
-  :after (counsel projectile))
+(use-package consult-projectile
+  :after (consult projectile))
 
 ;;;; Python
 (defun python-doc ()
