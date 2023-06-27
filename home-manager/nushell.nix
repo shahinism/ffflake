@@ -1,9 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   programs.zoxide = {
     enable = true;
     enableNushellIntegration = true;
   };
-  programs.atuin.enable = true;
 
-  home.file.".config/nushell".source = ./nushell;
+  home.file.".config/nushell" = {
+    source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/nushell/";
+  };
 }
