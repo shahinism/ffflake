@@ -562,3 +562,4 @@ alias tf = terraform
 alias top = btm
 alias watch = batwatch
 alias wget = wget -c # Resume by default
+alias sleep = systemctl suspend
