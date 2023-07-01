@@ -275,6 +275,11 @@ accepted by `set-default-attribute'."
    zenburn-scale-outline-headlines t)
   (load-theme 'zenburn t))
 
+(use-package dimmer
+  :config
+  (dimmer-mode t)
+  (setq dimmer-fraction 0.3))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package hydra)
 (use-package major-mode-hydra
@@ -689,7 +694,7 @@ accepted by `set-default-attribute'."
         ;; Number the candidates (use M-1, M-2 etc to select completions).
         company-show-numbers t)
   
-  (add-hook 'after-init-hook #'global-company-mode))
+  (add-hook 'prog-mode-hook #'global-company-mode))
 
 (use-package company-quickhelp
   :after company

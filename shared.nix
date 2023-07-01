@@ -31,7 +31,8 @@
           "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
       };
 
-      server_names = [ "NextDNS-627fa7" ];
+      # server_names = [ "NextDNS-627fa7" ];
+      server_names = [ "cloudflare" ];
       static = {
         NextDNS-627fa7.stamp =
           "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HLzYyN2ZhNw";
