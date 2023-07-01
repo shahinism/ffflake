@@ -130,7 +130,8 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shahin = {
-    shell = pkgs.nushell;
+    shell =
+      pkgs.nushell.override { additionalFeatures = p: p ++ [ "dataframe" ]; };
     isNormalUser = true;
     description = "Shahin Azad";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
