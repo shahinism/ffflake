@@ -18,6 +18,9 @@ set newtab about:blank
 " Ctrl-F should use the browser's native 'find' functionality.
 unbind <C-f>
 
+" Ctrl-E Keep it for Sidebery
+unbind <C-e>
+
 " Binds
 bind / fillcmdline find
 bind ? fillcmdline find -?
@@ -25,18 +28,24 @@ bind n findnext 1
 bind N findnext -1
 bind ,<Space> nohlsearch
 
-bind --mode=ex <C-a> text.beginning_of_line
-bind --mode=ex <C-e> text.end_of_line
-bind --mode=ex <C-w> text.backward_kill_word
-bind --mode=input <C-a> text.beginning_of_line
-bind --mode=input <C-e> text.end_of_line
-bind --mode=input <C-w> text.backward_kill_word
-bind --mode=insert <C-a> text.beginning_of_line
-bind --mode=insert <C-e> text.end_of_line
-bind --mode=insert <C-w> text.backward_kill_word
 
-bind <C-n> tabnext
-bind <C-p> tabprev
+" Disable <C-q>
+bind --mode=insert <C-q> js alert("<C-q> is for quitters.")
+bind --mode=input  <C-q> js alert("<C-q> is for quitters.")
+bind --mode=normal <C-q> js alert("<C-q> is for quitters.")
+bind --mode=ex     <C-q> js alert("<C-q> is for quitters.")
+bind --mode=hint   <C-q> js alert("<C-q> is for quitters.")
+
+" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
+set smoothscroll true
+
+" The default jump of 10 is a bit much.
+bind j scrollline 5
+bind k scrollline -5
+
+" Sometimes the status bar in the bottom left corner overlaps the Tridactyl
+" command line, so set an option to move the status bar to the right.
+guiset_quiet hoverlink right
 
 " Allow Ctrl-c to copy in the commandline
 unbind --mode=ex <C-c>

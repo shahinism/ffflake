@@ -72,7 +72,7 @@ in {
       killall
       xorg.xkill
 
-      htop
+      gimp
       brave
       slack
       xclip
