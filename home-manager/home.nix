@@ -150,6 +150,8 @@ in {
       mosh
       magic-wormhole
       sshuttle
+
+      protonvpn-cli
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
