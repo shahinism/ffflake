@@ -7,16 +7,16 @@
   # Networking
   networking = {
     # dns servers
-    nameservers = [ "127.0.0.1" "::1" ];
-    dhcpcd.extraConfig = "nohook resolv.conf";
+    # nameservers = [ "127.0.0.1" "::1" ];
+    # dhcpcd.extraConfig = "nohook resolv.conf";
     networkmanager = {
       enable = true;
-      dns = "none";
+      # dns = "none";
     };
   };
-  services.resolved.enable = false;
+  # services.resolved.enable = false;
   services.dnscrypt-proxy2 = {
-    enable = true;
+    enable = false;
     settings = {
       ipv6_servers = true;
       require_dnssec = true;

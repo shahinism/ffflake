@@ -27,6 +27,7 @@ in {
     ./qtile.nix
     ./rofi.nix
     ./tmux.nix
+    ./zellij.nix
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -152,6 +153,7 @@ in {
       sshuttle
 
       protonvpn-cli
+      mullvad-vpn
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
