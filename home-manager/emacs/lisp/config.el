@@ -393,24 +393,29 @@ accepted by `set-default-attribute'."
 
 (pretty-hydra-define hydra-projectile
   (:title " Project" :color blue :quit-key "q")
-  ("Find"
-   (("a"   counsel-projectile-ag)
-    ("m"   projectile-multi-occur)
-    ("b"   consult-projectile-switch-to-buffer))
-   "File/Buffer"
-    (("c"   projectile-invalidate-cache)
-     ("d"   consult-projectile-find-dir)
-     ("fF"  projectile-find-file-dwim)
-     ("ff"  consult-projectile-find-file)
-     ("fd"  projectile-find-file-in-directory)
-     ("g"   ggtags-update-tags)
-     ("i"   projectile-ibuffer)
-     ("k"   projectile-kill-buffers)
-     ("p"   projectile-switch-project)
-     ("r"   consult-projectile-recentf)
-     ("x"   projectile-remove-known-project)
-     ("X"   projectile-cleanup-known-projects)
-     ("z"   projectile-cache-current-file))))
+  ("Find File"
+   (("fF"  consult-projectile-find-file)
+    ("ff"  projectile-find-file-dwim)
+    ("fd"  consult-projectile-find-dir)
+    ("r"   consult-projectile-recentf)
+    ("d"   projectile-find-dir))
+   "Search/Tags"
+   (("a"   projectile-ag)
+    ("g"   ggtags-update-tags)
+    ("o"   projectile-multi-occur))
+   "Buffers"
+   (("i"   projectile-ibuffer)
+    ("b"   projectile-switch-to-buffer)
+    ("K"   projectile-kill-buffers))
+   "Cache"
+   (("C"   projectile-invalidate-cache)
+    ("z"   projectile-cache-current-file))
+   "Project"
+   (("p"   projectile-switch-project)
+    ("s"   projectile-switch-project)
+    ("x"   projectile-remove-known-project)
+    ("X"   projectile-cleanup-known-projects)
+    ("c"   projectile-compile-project))))
 
 (pretty-hydra-define hydra-org
   (:title " Org" :color blue :quit-key "q")
@@ -982,3 +987,9 @@ accepted by `set-default-attribute'."
   :mode "\\.nu\\'"
   :hook
   (nu-mode . tree-sitter-hl-mode))
+
+;;
+;; -> PlantUML
+;;
+(use-package plantuml-mode
+  :mode "\\.puml\\'")
