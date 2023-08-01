@@ -74,6 +74,7 @@ in {
       xorg.xkill
 
       gimp
+      inkscape
       brave
       slack
       xclip
@@ -154,6 +155,11 @@ in {
 
       protonvpn-cli
       mullvad-vpn
+      wireguard-tools
+      deluge-gtk
+
+      # TEMP
+      vscodium-fhs
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
