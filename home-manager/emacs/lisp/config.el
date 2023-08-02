@@ -406,7 +406,7 @@ accepted by `set-default-attribute'."
    "Buffers"
    (("i"   projectile-ibuffer)
     ("b"   projectile-switch-to-buffer)
-    ("K"   projectile-kill-buffers))
+    ("k"   projectile-kill-buffers))
    "Cache"
    (("C"   projectile-invalidate-cache)
     ("z"   projectile-cache-current-file))
