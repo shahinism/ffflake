@@ -817,7 +817,12 @@ accepted by `set-default-attribute'."
 (use-package markdown-toc)
 (use-package grip-mode
   :bind (:map markdown-mode-command-map
-              ("g" . grip-mode)))
+              ("g" . grip-mode))
+  :config
+  (require 'auth-source)
+  (let ((credential (auth-source-user-and-password "api.github.com")))
+    (setq grip-github-user (car credential)
+          grip-github-password (cadr credential))))
 
 ;; better export suggested by grip-mode
 (use-package ox-gfm
