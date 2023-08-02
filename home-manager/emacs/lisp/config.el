@@ -814,6 +814,7 @@ accepted by `set-default-attribute'."
 (use-package magit)
 
 (use-package markdown-mode)
+(use-package markdown-toc)
 (use-package grip-mode
   :bind (:map markdown-mode-command-map
               ("g" . grip-mode)))
