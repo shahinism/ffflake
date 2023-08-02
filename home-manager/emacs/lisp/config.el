@@ -439,9 +439,9 @@ accepted by `set-default-attribute'."
 (pretty-hydra-define hydra-goto
   (:title " Goto" :color blue :quit-key "q" :foreign-keys warn :separator "-")
   ("Got"
-   (("j" avy-goto-char       "char")
-    ("t" avy-goto-char-timer "timer")
-    ("w" avy-goto-word-1     "word")
+   (("c" avy-goto-char       "char")
+    ("j" avy-goto-char-timer "timer")
+    ("f" avy-goto-word-1     "word")
     ("r" avy-resume "resume"))
    "Line"
    (("h" avy-goto-line        "head")
@@ -457,7 +457,7 @@ accepted by `set-default-attribute'."
     ("l" consult-flycheck "list"))
    "Spell"
    ((">"  flyspell-goto-next-error "next" :exit nil)
-    ("cc" flyspell-correct-at-point "correct" :exit nil))))
+    ("'" flyspell-correct-at-point "correct" :exit nil))))
 
 ;; meow
 (defun meow-setup ()
