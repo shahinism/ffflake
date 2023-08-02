@@ -2,10 +2,10 @@
 
 let
   python-packages = p:
-    with p;
-    [
+    with p; [
       # python-lsp-server
       ipython
+      grip # markdown preview used by Emacs
     ];
   nodejs-packages = with pkgs.nodePackages_latest;
     [

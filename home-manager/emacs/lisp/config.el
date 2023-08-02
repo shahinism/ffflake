@@ -814,6 +814,16 @@ accepted by `set-default-attribute'."
 (use-package magit)
 
 (use-package markdown-mode)
+(use-package grip-mode
+  :bind (:map markdown-mode-command-map
+              ("g" . grip-mode)))
+
+;; better export suggested by grip-mode
+(use-package ox-gfm
+  :after org
+  :config
+  (require 'ox-gfm nil t))
+
 (use-package dumb-jump) ;; TODO config dumb-jump binding
 (use-package terraform-mode)
 (use-package nix-mode)
