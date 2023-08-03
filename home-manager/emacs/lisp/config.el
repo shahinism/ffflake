@@ -273,24 +273,6 @@ accepted by `set-default-attribute'."
         doom-themes-enable-italic t)
   (load-theme 'doom-dracula t))
 
-(use-package zenburn-theme
-  :disabled ;; With Embark description doesn't play well. The same
-            ;; goes with `doom-zenburn'.
-  :config
-  (setq
-   ;; use variable-pitch fonts for some headings and titles
-   zenburn-use-variable-pitch t
-   ;; scale headings in org-mode
-   zenburn-scale-headlines t
-   ;; scale headings in outline-mode
-   zenburn-scale-outline-headlines t)
-  (load-theme 'zenburn t))
-
-(use-package dimmer
-  :config
-  (dimmer-mode t)
-  (setq dimmer-fraction 0.3))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package hydra)
 (use-package major-mode-hydra
@@ -588,195 +570,6 @@ accepted by `set-default-attribute'."
   :init
   (direnv-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;; Completion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package vertico
-;;   :straight (:files (:defaults "extensions/*"))
-;;   :custom
-;;   (vertico-cycle t)
-;;   :init
-;;   (vertico-mode 1)
-;;   :config
-;;   (require 'vertico-directory))
-
-;; (use-package marginalia
-;;   :custom
-;;   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-;;   :init
-;;   (marginalia-mode 1))
-
-;; (use-package consult
-;;   :straight (:files (:defaults "extensions/*"))
-;;   :bind
-;;   (("C-s" . consult-line)
-;;    ("M-y" . consult-yank-pop)
-;;    :map minibuffer-local-map
-;;    ("C-r" . consult-history))
-;;   :custom (consult-async-min-input 1)
-;;   :config
-;;   (setq completion-in-region-function #'consult-completion-in-region))
-
-;; (use-package orderless
-;;   :init
-;;   ;; Configure a custom style dispatcher (see the Consult wiki)
-;;   ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-;;   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-;;   (setq completion-styles '(orderless basic)
-;;         completion-category-defaults nil
-;;         completion-category-overrides '((file (styles partial-completion)))))
-
-(use-package counsel
-  :blackout
-  :bind
-  ("C-s" . swiper)
-  :init
-  (ivy-mode)
-  (counsel-mode)
-  :config
-  (blackout 'ivy-mode)
-  (setq ivy-use-virtual-buffers t
-        enable-recursive-minibuffers t))
-
-(use-package embark
-  :bind
-  ([remap describe-bindings] . embark-bindings)
-  ("C-." . embark-act))
-
-(use-package embark-consult
-  :after (embark consult))
-
-(use-package corfu
-  :after vertico
-  :straight (:files (:defaults "extensions/*"))
-  :custom
-  (corfu-popupinfo-delay '(0.5 . 0.3))
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-quit-at-boundary t)     ;; Automatically quit at word boundary
-  (corfu-quit-no-match t)        ;; Automatically quit if there is no match
-  (corfu-preselect-first nil)    ;; Disable candidate preselection
-  (corfu-scroll-margin 5)        ;; Use scroll margin
-  :hook ((corfu-mode . corfu-popupinfo-mode))
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("<C-return>" . corfu-insert))
-  :init
-  (global-corfu-mode))
-
-(use-package cape
-  :after corfu
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-keyword))
-
-(use-package tabnine-capf
-  :after cape
-  :commands (tabnine-capf-install-binary
-             tabnine-capf-restart-server)
-  :straight (:host github :repo "50ways2sayhard/tabnine-capf" :files ("*.el" "*.sh"))
-  :hook (kill-emacs . tabnine-capf-kill-process)
-  :config
-  (add-to-list 'completion-at-point-functions #'tabnine-completion-at-point))
-
-(use-package company
-  :after yasnippet
-  :blackout
-  :init
-  (setq company-minimum-prefix-length 1
-        company-dabbrev-minimum-length 3
-        company-dabbrev-code-time-limit 0.3
-        company-tooltip-limit 14
-        company-tooltip-align-annotations t
-        company-require-match 'never
-        company-files-exclusions '(".git/" ".DS_Store")
-        company-global-modes '(not vterm-mode)
-        company-frontends '(company-pseudo-tooltip-frontend
-                            ;; always show candidates in overlay tooltip
-                            company-echo-metadata-frontend)
-        company-backends '((company-files company-yasnippet company-capf :separate company-dabbrev-code))
-        company-auto-commit nil
-        company-dabbrev-other-buffers nil
-        company-dabbrev-code-other-buffers nil
-        company-dabbrev-ignore-case t
-        company-dabbrev-code-ignore-case t
-        company-dabbrev-downcase nil
-        company-selection-wrap-around t
-        completion-ignore-case t
-        ;; Trigger completions immediately.
-        company-idle-delay 0
-        ;; Number the candidates (use M-1, M-2 etc to select completions).
-        company-show-numbers t)
-  
-  (add-hook 'prog-mode-hook #'global-company-mode))
-
-(use-package company-quickhelp
-  :after company
-  :bind
-  (:map company-active-map ("C-h" . company-quickhelp-manual-begin)))
-
-(use-package company-box
-  :hook (company-mode . company-box-mode))
-
-(use-package yasnippet
-  :blackout
-  :hook (after-init . yas-global-mode)
-  :config
-  (yas-reload-all))
-
-(use-package yasnippet-snippets
-  :after yasnippet
-  :config (yasnippet-snippets-initialize))
-
-(use-package ivy-yasnippet
-  :after (ivy yasnippet))
-
-(use-package emmet-mode
-  :hook ((sgml-mode . emmet-mode)
-         (css-mode . emmet-mode)
-         (web-mode . emmet-mode)
-         (html-mode . emmet-mode)))
-
-(use-package web-mode
-  :mode ("\\.html?\\'"
-         "\\.php\\'"
-         "\\.xml\\'")
-  :config
-  (progn
-    (setq web-mode-engines-alist '(("hugo" . ".*hugo.*\\(html\\|xml\\)\\'")))))
-
-(use-package doom-snippets
-  :after yasnippet
-  :straight (:host github :repo "hlissner/doom-snippets" :files ("*.el" "snippets")))
-
-;; (use-package company-tabnine
-;;   :init
-;;   (add-to-list 'company-backends #'company-tabnine))
-
-(use-package copilot
-  :hook (prog-mode . copilot-mode)
-  :straight (:host github :repo "zerolfx/copilot.el" :files ("dist" "*.el"))
-  :config
-  (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "C-;") 'copilot-accept-completion-by-word))
-
-(use-package shell-maker
-  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("shell-maker.el")))
-
-(use-package chatgpt-shell
-  :requires shell-maker
-  :straight (:host github :repo "xenodium/chatgpt-shell" :files ("chatgpt-shell.el"))
-  :config
-  (setq chatgpt-shell-openai-key
-      (lambda ()
-        (auth-source-pick-first-password :host "api.openai.com"))
-      chatgpt-shell-streaming t
-      chatgpt-shell-model-version "gpt-3.5-turbo"
-      chatgpt-shell-request-timeout 300000))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Programming ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Show the name of the current function definition in the modeline
 (require 'which-func)
@@ -837,8 +630,8 @@ accepted by `set-default-attribute'."
 (use-package docker-compose-mode)
 (use-package docker)
 
-(use-package consult-eglot
-  :after (consult eglot))
+;; (use-package consult-eglot
+;;   :after (consult eglot))
 
 (use-package rainbow-mode
   :hook (prog-mode . rainbow-mode))
@@ -883,11 +676,11 @@ accepted by `set-default-attribute'."
   :init
   (projectile-mode +1))
 
-(use-package consult-projectile
-  :after (consult projectile))
+;; (use-package consult-projectile
+;;   :after (consult projectile))
 
-(use-package counsel-projectile
-  :after (counsel projectile))
+;; (use-package counsel-projectile
+;;   :after (counsel projectile))
 
 ;;;; Python
 (defun python-doc ()

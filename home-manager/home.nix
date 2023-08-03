@@ -53,7 +53,6 @@ in {
       cmake # rquired by emacs to build vterm
       gcc
       git-extras
-      tmux # TODO tune me
       silver-searcher
       okular
 
@@ -62,6 +61,7 @@ in {
       aspellDicts.en
       aspellDicts.en-science
       aspellDicts.en-computers
+      emacs-all-the-icons-fonts
 
       # Required for Emacs vterm
       libvterm
