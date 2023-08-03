@@ -7,6 +7,8 @@
 
 
 ;;; Code:
+(provide 'sh-completion)
+
 (use-package vertico
   :straight (:files (:defaults "extensions/*"))
   :bind (:map vertico-map
@@ -127,5 +129,3 @@
       chatgpt-shell-streaming t
       chatgpt-shell-model-version "gpt-3.5-turbo"
       chatgpt-shell-request-timeout 300000))
-
-(provide 'sh-completion)

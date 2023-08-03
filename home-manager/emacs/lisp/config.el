@@ -368,11 +368,6 @@ accepted by `set-default-attribute'."
    (("D" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
     ("X" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit)))))
 
-(pretty-hydra-define hydra-lookup
-  (:title " Lookup" :color blue :quit-key "q")
-  ("Documents"
-   (("." devdocs-lookup "DevDocs Lookup"))))
-
 (pretty-hydra-define hydra-projectile
   (:title " Project" :color blue :quit-key "q")
   ("Find File"
@@ -464,7 +459,6 @@ accepted by `set-default-attribute'."
    '("w" . hydra-window/body)
    '("v" . magit-status)
    '("l" . hydra-lsp-bridge/body)
-   '("d" . hydra-lookup/body)
    '("t" . hydra-toggle/body)
    '("o" . hydra-org/body)
    ;; Use SPC (0-9) for digit arguments.
@@ -600,10 +594,6 @@ accepted by `set-default-attribute'."
   :custom
   (flycheck-display-errors-delay 0))
 
-(use-package devdocs
-  ;; TODO config me
-  )
-
 (use-package magit)
 
 (use-package markdown-mode)
@@ -683,15 +673,6 @@ accepted by `set-default-attribute'."
 ;;   :after (counsel projectile))
 
 ;;;; Python
-(defun python-doc ()
-  (interactive)
-  (setq-local devdocs-current-docs '("python-3.11")))
-
-(add-hook 'python-mode-hook #'eldoc-mode)
-
-(when (fboundp #'devdocs-lookup)
-  (add-hook 'python-mode-hook #'python-doc))
-
 (use-package anaconda-mode
   :hook
   (python-mode . anaconda-mode)
