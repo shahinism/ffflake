@@ -382,7 +382,7 @@ accepted by `set-default-attribute'."
     ("r"   consult-projectile-recentf)
     ("d"   projectile-find-dir))
    "Search/Tags"
-   (("a"   projectile-ag)
+   (("a"   consult-ag)
     ("g"   ggtags-update-tags)
     ("o"   projectile-multi-occur))
    "Buffers"
@@ -676,8 +676,8 @@ accepted by `set-default-attribute'."
   :init
   (projectile-mode +1))
 
-;; (use-package consult-projectile
-;;   :after (consult projectile))
+(use-package consult-projectile
+  :after (consult projectile))
 
 ;; (use-package counsel-projectile
 ;;   :after (counsel projectile))

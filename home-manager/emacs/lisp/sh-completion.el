@@ -1,25 +1,12 @@
 ;;; sh-completion.el --- Personal Completion Configuration -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; Personal completion configuration. Anything related to completion,
+;; Personal completion configuration; Anything related to completion
 ;; narrowing, and finding based on user inputs, are placed in this
 ;; module.
 
 
 ;;; Code:
-
-;; https://github.com/SystemCrafters/crafted-emacs/blob/master/modules/crafted-completion.el
-(defun sh-completion/minibuffer-backward-kill (arg)
-  "Delete word or delete up to parent folder when completion is a file.
-
-ARG is the thing being completed in the minibuffer."
-  (interactive "P")
-  (if minibuffer-completing-file-name
-      (if (string-match-p "/." (minibuffer-contents))
-          (zap-up-to-char (- arg) ?/)
-        (delete-minibuffer-contents))
-    (backward-kill-word arg)))
-
 (use-package vertico
   :straight (:files (:defaults "extensions/*"))
   :bind (:map vertico-map
@@ -42,12 +29,16 @@ ARG is the thing being completed in the minibuffer."
   (marginalia-mode 1))
 
 (use-package embark-consult)
+
 (use-package consult
   :bind
   (("C-s" . 'consult-line)
    ("M-y" . 'consult-yank-pop)
    :map minibuffer-local-map
    ("C-r" . 'consult-history)))
+
+(use-package consult-ag
+  :after consult)
 
 (use-package embark
   :bind
