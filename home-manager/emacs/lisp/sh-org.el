@@ -17,7 +17,7 @@
 
   (setq org-startup-indented t
         org-startup-folded t
-        org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
+        ;; org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
         org-use-speed-commands t
         org-src-fontify-natively t
         org-src-tab-acts-natively t
@@ -60,6 +60,7 @@
   )
 
 (use-package org-bullets
+  :disabled t
   :after org
   :config
   (add-hook 'org-mode-hook #'org-bullets-mode)
