@@ -165,6 +165,7 @@ accepted by `set-default-attribute'."
 (shahin/ui--set-default-font '(:font "FiraCode Nerd Font" :weight regular :height 120))
 
 ;;;; doom-modeline
+;; NOTE requires to run `M-x nerd-fonts-install-fonts'
 (use-package doom-modeline
   :custom
   (doom-modeline-height 15)
@@ -172,7 +173,7 @@ accepted by `set-default-attribute'."
   (doom-modeline-minor-modes t)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   :init
-  (add-hook 'after-init-hook #'doom-modeline-mode))
+  (doom-modeline-mode 1))
 
 ;;;; helpful
 ;; Make `describe-*` screens more helpful!
@@ -477,9 +478,19 @@ accepted by `set-default-attribute'."
 (use-package meow
   :init
   (meow-global-mode 1)
+  :hook
+  (git-commit-setup . meow-insert-mode)
+  (org-capture-mode . meow-insert-mode)
+  (meow-insert-exit . meow--corfu-quit)
   :config
   (setq meow-use-clipboard t)
-  (meow-setup))
+  (meow-setup)
+
+  (defun meow--corfu-quit ()
+    (when corfu--candidates
+      (corfu-quit))
+    )
+  )
 
 (global-set-key (kbd "M-,") 'previous-buffer)
 (global-set-key (kbd "M-.") 'next-buffer)

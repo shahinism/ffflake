@@ -5,6 +5,21 @@
 (require 'which-func)
 (which-function-mode 1)
 
+(use-package vundo
+  :commands (vundo)
+  :bind
+  (("C-/" . vundo)
+   :map vundo-mode-map
+        ("l" . vundo-forward)
+        ("h" . vundo-backward)
+        ("n" . vundo-next)
+        ("p" . vundo-previous)
+        ("q" . vundo-quit))
+  :config
+  ;; Minimal display real-state
+  (setq vundo-compact-display t)
+  )
+
 ;; Linum
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
