@@ -10,3 +10,4 @@
 (require 'config)
 (require 'sh-completion)
 (require 'sh-development)
+(require 'sh-org)

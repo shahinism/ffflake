@@ -39,6 +39,12 @@
    :map minibuffer-local-map
    ("C-r" . 'consult-history)))
 
+(use-package consult-eglot
+  :after (consult eglot))
+
+(use-package consult-projectile
+  :after (consult projectile))
+
 (use-package consult-ag
   :after consult)
 

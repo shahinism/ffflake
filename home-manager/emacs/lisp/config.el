@@ -80,6 +80,9 @@
 (require 'use-package)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Tools ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; => Handy
+;;
 ;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
 (defun unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
@@ -91,85 +94,8 @@
 
 ;; Handy key definition
 (define-key global-map "\M-Q" 'unfill-paragraph)
-;;
-;; => Org
-;;
-(use-package org
-  :ensure t
-  :config
-  (require 'org-tempo) ;; enable org templates; by default it's disabled
-  ;; on Org > 9.2, more info:
-  ;; https://emacs.stackexchange.com/a/46992
 
-  (setq org-startup-indented t
-        org-startup-folded t
-        org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
-        org-use-speed-commands t
-        org-src-fontify-natively t
-        org-src-tab-acts-natively t
-        org-directory "~/org"
-        org-agenda-files (list "~/org")
-        org-log-refile t
-        org-refile-use-outline-path t
-        org-outline-path-complete-in-steps nil
-        org-refile-targets
-        '((org-agenda-files . (:maxlevel . 2)))
-        org-capture-templates
-        '(("t" "Task Entry"        entry
-           (file+headline "~/org/todo.org" "Inbox")
-           "* [ ] %?
-:PROPERTIES:
-:Added:     %U
-:END:" :empty-lines 0)
-          ))
 
-   ;; Return or left-click with mouse should follow links
-  (customize-set-variable 'org-return-follows-link t)
-  (customize-set-variable 'org-mouse-1-follows-link t)
-
-  ;; Display links as the description provided
-  (customize-set-variable 'org-descriptive-links t)
-
-  ;; Hide markup markers
-  (customize-set-variable 'org-hide-emphasis-markers t)
-
-  ;; disable auto-pairing of "<" in org mode
-  (add-hook 'org-mode-hook (lambda ()
-                             (setq-local electric-pair-inhibit-predicate
-                                         `(lambda (c)
-                                            (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
-  (with-eval-after-load 'org
-    (org-indent-mode t)
-    (require 'org-id))
-  )
-
-(use-package org-appear
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'org-appear-mode)
-  )
-
-(use-package org-bullets
-  :after org
-  :config
-  (add-hook 'org-mode-hook #'org-bullets-mode)
-  )
-
-(use-package org-download
-  :after org
-  :config
-  (setq org-download-method 'directory
-        org-download-heading-lvl nil
-        org-download-timestamp "_%Y%m%d-%H%M%S"
-        org-image-actual-width t
-        org-download-screenshot-method "flameshot gui --raw > %s")
-
-  (customize-set-variable 'org-download-image-dir "images")
-  )
-
-;;
-;; => Handy
-;;
 (use-package blackout)
 
 (use-package move-border
@@ -406,7 +332,17 @@ accepted by `set-default-attribute'."
    (("ds" org-download-screenshot "Insert screenshot")
     ("dc" org-download-clipboard "Attach image from clipboard"))
    "Roam"
-   (("n" org-roam-node-find "Find roam node"))))
+   (("nl" org-roam-buffer-toggle "Toggle roam buffer")
+    ("ni" org-roam-node-insert "Insert roam node")
+    ("nf" org-roam-node-find "Find roam node")
+    ("ng" org-roam-graph "Show roam graph")
+    ("nc" org-roam-capture "Capture roam node")
+    ("nt" org-roam-dailies-find-today "Find today's roam node")
+    ("nr" org-roam-dailies-find-tomorrow "Find tomorrow's roam node")
+    ("np" org-roam-dailies-find-yesterday "Find yesterday's roam node")
+    ("nj" org-roam-dailies-capture-today "Capture today's roam node")
+    ("na" org-roam-alias-add "Add roam alias")
+    ("nd" org-roam-alias-delete "Delete roam alias"))))
 
 ;; avy
 ; Jump to things in tree-style
@@ -565,112 +501,6 @@ accepted by `set-default-attribute'."
   (direnv-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Programming ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Show the name of the current function definition in the modeline
-(require 'which-func)
-(which-function-mode 1)
-
-;; Linum
-(setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode)
-
-;; font-lock annotations like TODO in the source code
-(use-package hl-todo
-  :init
-  (global-hl-todo-mode 1))
-
-(use-package tree-sitter
-  :init
-  (global-tree-sitter-mode))
-
-(use-package tree-sitter-langs
-  :after tree-sitter)
-
-(use-package flycheck
-  :init
-  (global-flycheck-mode)
-  :bind
-  (("M-n" . flycheck-next-error)
-   ("M-p" . flycheck-previous-error))
-  :custom
-  (flycheck-display-errors-delay 0))
-
-(use-package magit)
-
-(use-package markdown-mode)
-(use-package markdown-toc)
-(use-package grip-mode
-  :bind (:map markdown-mode-command-map
-              ("g" . grip-mode))
-  :config
-  (require 'auth-source)
-  (let ((credential (auth-source-user-and-password "api.github.com")))
-    (setq grip-github-user (car credential)
-          grip-github-password (cadr credential))))
-
-;; better export suggested by grip-mode
-(use-package ox-gfm
-  :after org
-  :config
-  (require 'ox-gfm nil t))
-
-(use-package dumb-jump) ;; TODO config dumb-jump binding
-(use-package terraform-mode)
-(use-package nix-mode)
-(use-package dockerfile-mode)
-(use-package docker-compose-mode)
-(use-package docker)
-
-;; (use-package consult-eglot
-;;   :after (consult eglot))
-
-(use-package rainbow-mode
-  :hook (prog-mode . rainbow-mode))
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-;; Fix trailing spaces but only in modified lines
-(use-package ws-butler
-  :hook (prog-mode . ws-butler-mode))
-
-(use-package yaml-mode)
-
-(use-package indent-guide
-  :hook (prog-mode . indent-guide-mode))
-
-;; Code folding
-(use-package ts-fold
-  :straight (ts-fold :type git :host github :repo "emacs-tree-sitter/ts-fold"))
-
-(use-package eglot
-  :commands eglot eglot-ensure
-  :hook
-  (python-mode . eglot-ensure)
-  (go-mode . eglot-ensure)
-  (typescript-mode . eglot-ensure)
-  (js-mode . eglot-ensure)
-  :config
-  (add-to-list 'eglot-stay-out-of 'company)
-  ;; Shutdown server when last managed buffer is killed
-  (setq eglot-sync-connect 1
-        eglot-connect-timeout 10
-        eglot-autoshutdown t
-        eglot-send-changes-idle-time 0.5
-        ;; NOTE We disable eglot-auto-display-help-buffer because :select t in
-        ;;      its popup rule causes eglot to steal focus too often.
-        eglot-auto-display-help-buffer nil)
-  )
-
-(use-package projectile
-  :blackout
-  :init
-  (projectile-mode +1))
-
-(use-package consult-projectile
-  :after (consult projectile))
-
-;; (use-package counsel-projectile
-;;   :after (counsel projectile))
 
 ;;;; Python
 (use-package anaconda-mode
@@ -718,68 +548,3 @@ accepted by `set-default-attribute'."
   (:map python-mode-map
         ("C-c C-u" . pyimpsort-buffer)))
 
-;;
-;; -> Common Lisp
-;;
-(use-package sly
-  :custom
-  (inferior-lisp-program "sbcl"))
-;;
-;; -> Exercism
-;;
-(use-package exercism)
-
-;;
-;; -> SQL
-;;
-(use-package sql
-  ;; FIXME it's not working
-  :mode "\\.k?sql\\'")
-
-;; TODO add https://github.com/purcell/sqlformat
-
-;;
-;; -> TypeScript
-;;
-(use-package typescript-mode
-  :after tree-sitter
-  :mode "\\.ts\\'"
-  :hook
-  (typescript-mode . tree-sitter-hl-mode)
-  :config
-  ;; we choose this instead of tsx-mode so that eglot can automatically figure out language for server
-  ;; see https://github.com/joaotavora/eglot/issues/624 and https://github.com/joaotavora/eglot#handling-quirky-servers
-  (define-derived-mode typescriptreact-mode typescript-mode
-    "TypeScript TSX")
-
-  (setq typescript-indent-level 2)
-  ;; use our derived mode for tsx files
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
-  ;; by default, typescript-mode is mapped to the treesitter typescript parser
-  ;; use our derived mode to map both .tsx AND .ts -> typescriptreact-mode -> treesitter tsx
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
-
-;;
-;; -> Go
-;;
-(use-package go-mode
-  :mode "\\.go\\'"
-  :hook
-  (go-mode . tree-sitter-hl-mode)
-  :config
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save))
-
-;;
-;; -> Nu
-;;
-(use-package nushell-mode
-  :mode "\\.nu\\'"
-  :hook
-  (nu-mode . tree-sitter-hl-mode))
-
-;;
-;; -> PlantUML
-;;
-(use-package plantuml-mode
-  :mode "\\.puml\\'")
