@@ -16,3 +16,4 @@ session*
 eln-cache
 *.db
 places.sync*
+cache

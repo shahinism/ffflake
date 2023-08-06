@@ -3,7 +3,6 @@
 (provide 'sh-org)
 
 (use-package org
-  :ensure t
   :hook
   ;; disable auto-pairing of "<" in org mode
   (org-mode . (lambda ()

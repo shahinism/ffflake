@@ -55,6 +55,7 @@ in {
       git-extras
       silver-searcher
       okular
+      zstd # Used by emacs to optimize undo history
 
       nodejs # required by copilot
       aspell # Used with Emacs as spell checker

@@ -1,6 +1,9 @@
 ;;; sh-completion.el --- Personal Completion Configuration -*- lexical-binding: t; -*-
 (provide 'sh-development)
 
+;; TODO add autosave mode
+;; TODO configure temp file directory
+
 ;; Show the name of the current function definition in the modeline
 (require 'which-func)
 (which-function-mode 1)
@@ -10,11 +13,13 @@
   :custom
   (undo-fu-session-directory (sh-cache-dir "undo-fu-session"))
   (undo-fu-session-linear nil)
-  (undo-fu-session-compression 'gz)
   (undo-fu-session-file-limit nil)
   (undo-fu-session-incompatible-files '("\\.gpg$"
                                         "/COMMIT_EDITMSG\\'"
                                         "/git-rebase-todo\\'"))
+  :config
+  (when (executable-find "zstd")
+    (setq undo-fu-session-compression 'zstd))
   )
 
 (use-package vundo
