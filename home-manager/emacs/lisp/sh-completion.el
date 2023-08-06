@@ -72,10 +72,12 @@
   :bind (:map corfu-map
               ("C-j" . corfu-next)
               ("C-k" . corfu-previous))
-  :hook (corfu-mode . corfu-popupinfo-mode)
+  :hook
+  (corfu-mode . corfu-popupinfo-mode)
   :config
   (global-corfu-mode)
-  (eldoc-add-command #'corfu-insert))
+  (eldoc-add-command #'corfu-insert)
+  )
 
 (use-package corfu-terminal
   :config
