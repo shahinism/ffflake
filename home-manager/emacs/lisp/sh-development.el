@@ -5,6 +5,18 @@
 (require 'which-func)
 (which-function-mode 1)
 
+(use-package undo-fu-session
+  :hook (after-init . global-undo-fu-session-mode)
+  :custom
+  (undo-fu-session-directory (sh-cache-dir "undo-fu-session"))
+  (undo-fu-session-linear nil)
+  (undo-fu-session-compression 'gz)
+  (undo-fu-session-file-limit nil)
+  (undo-fu-session-incompatible-files '("\\.gpg$"
+                                        "/COMMIT_EDITMSG\\'"
+                                        "/git-rebase-todo\\'"))
+  )
+
 (use-package vundo
   :commands (vundo)
   :custom
