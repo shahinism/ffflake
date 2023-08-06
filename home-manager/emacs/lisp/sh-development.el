@@ -7,8 +7,11 @@
 
 (use-package vundo
   :commands (vundo)
+  :custom
+  (vundo-glyph-alist vundo-unicode-symbols)
+  (vundo-compact-display t)
   :bind
-  (("C-/" . vundo)
+  (("C-c u" . vundo)
    :map vundo-mode-map
         ("l" . vundo-forward)
         ("h" . vundo-backward)
@@ -16,8 +19,6 @@
         ("p" . vundo-previous)
         ("q" . vundo-quit))
   :config
-  ;; Minimal display real-state
-  (setq vundo-compact-display t)
   )
 
 ;; Linum
@@ -180,3 +181,15 @@
 ;; -> PlantUML
 (use-package plantuml-mode
   :mode "\\.puml\\'")
+
+;; -> Shell
+(use-package eat
+  :straight '(eat
+              :type git
+              :host codeberg
+              :repo "akib/emacs-eat"
+              :files ("*.el" ("term" "term/*.el") "*.texi"
+                      "*.ti" ("terminfo/e" "terminfo/e/*")
+                      ("terminfo/65" "terminfo/65/*")
+                      ("integration" "integration/*")
+                      (:exclude ".dir-locals.el" "*-tests.el"))))

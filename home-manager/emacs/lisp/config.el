@@ -315,7 +315,8 @@ accepted by `set-default-attribute'."
    (("C"   projectile-invalidate-cache)
     ("z"   projectile-cache-current-file))
    "Project"
-   (("p"   projectile-switch-project)
+   (("t"   eat-project)
+    ("p"   projectile-switch-project)
     ("s"   projectile-switch-project)
     ("x"   projectile-remove-known-project)
     ("X"   projectile-cleanup-known-projects)
@@ -481,6 +482,7 @@ accepted by `set-default-attribute'."
   :hook
   (git-commit-setup . meow-insert-mode)
   (org-capture-mode . meow-insert-mode)
+  (eat--semi-char-mode . meow-insert-mode)
   (meow-insert-exit . meow--corfu-quit)
   :config
   (setq meow-use-clipboard t)
