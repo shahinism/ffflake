@@ -3,6 +3,17 @@
 
 ;; TODO add autosave mode
 ;; TODO configure temp file directory
+;; Exec Path From Shell
+; Do it on window systems and Unix based environment
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :config
+  (exec-path-from-shell-initialize))
+
+;; direnv
+(use-package direnv
+  :init
+  (direnv-mode))
 
 ;; Show the name of the current function definition in the modeline
 (require 'which-func)
@@ -38,10 +49,11 @@
   :config
   )
 
-;; Linum
+;; -> Linum
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
 
+;; -> Devdocs
 (use-package devdocs
   ;; TODO extract a function instead of this lambda
   :hook ((python-mode . (lambda () (setq-local devdocs-current-docs '("python-3.11"))))
@@ -227,3 +239,45 @@
 (use-package cargo-mode
   :hook
   (rust-mode . cargo-minor-mode))
+
+;; -> Python
+(use-package anaconda-mode
+  :hook
+  (python-mode . anaconda-mode)
+  :config
+
+  ;;  Move anaconda python installation directory to user var/
+  (customize-set-variable
+   'anaconda-mode-installation-directory
+   (expand-file-name "anaconda-mode" lt/config-var-dir))
+  )
+
+(use-package blacken
+  :hook
+  (python-mode . blacken-mode))
+
+(use-package numpydoc
+  :custom
+  (numpydoc-insert-examples-block nil)
+  (numpydoc-template-long nil))
+
+(use-package pyimport
+  :bind
+  (:map python-mode-map
+        ("C-c C-i" . pyimport-insert-missing)))
+
+;; Requires `importmagic' and `epc' packages to be available in the
+;; `PATH'.
+(use-package importmagic
+  :disabled  ; drastically slows down the instance!
+  :bind
+  (:map importmagic-mode-map
+        ("C-c C-f" . importmagic-fix-symbol-at-point))
+  :hook
+  (python-mode-hook 'importmagic-mode)
+  )
+
+(use-package pyimpsort
+  :bind
+  (:map python-mode-map
+        ("C-c C-u" . pyimpsort-buffer)))
