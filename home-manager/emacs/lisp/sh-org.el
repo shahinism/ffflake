@@ -16,12 +16,12 @@
 
   (setq org-startup-indented t
         org-startup-folded t
-        ;; org-todo-keywords '((sequence "[ ](t)" "[*](p)" "[-](n)" "|" "[x](d)" "[c](c@)"))
+        org-todo-keywords '((sequence "TODO(t)" "ACTIVE(a)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c@)"))
         org-use-speed-commands t
         org-src-fontify-natively t
         org-src-tab-acts-natively t
         org-directory "~/org"
-        org-agenda-files (list "~/org")
+        org-agenda-files (list "~/org" "~/org/roam/daily")
         org-log-refile t
         org-refile-use-outline-path t
         org-outline-path-complete-in-steps nil
@@ -89,5 +89,4 @@
 (use-package org-modern
   :after org
   :hook
-  (org-mode . org-modern-mode)
-  (org-agenda-finalize . org-modern-agenda-mode))
+  (org-mode . org-modern-mode))

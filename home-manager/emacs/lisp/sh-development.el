@@ -210,3 +210,20 @@
                       ("terminfo/65" "terminfo/65/*")
                       ("integration" "integration/*")
                       (:exclude ".dir-locals.el" "*-tests.el"))))
+
+;; -> Rust
+;; NOTE requires rustfmt
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :custom
+  (rust-format-on-save t)
+  :hook
+  (rust-mode . eglot-ensure)
+  (rust-mode . tree-sitter-hl-mode)
+  (rust-mode . prettify-symbols-mode)
+  )
+
+;; TODO setup key bindings
+(use-package cargo-mode
+  :hook
+  (rust-mode . cargo-minor-mode))
