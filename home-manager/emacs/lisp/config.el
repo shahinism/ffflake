@@ -399,6 +399,7 @@ accepted by `set-default-attribute'."
    '("l" . hydra-lsp-bridge/body)
    '("t" . hydra-toggle/body)
    '("o" . hydra-org/body)
+   '("b" . consult-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -498,7 +499,6 @@ accepted by `set-default-attribute'."
 (global-set-key (kbd "M-.") 'next-buffer)
 (global-set-key (kbd "M-!") 'async-shell-command)
 (global-set-key (kbd "M-@") 'shell-command)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Exec Path From Shell
 ; Do it on window systems and Unix based environment
