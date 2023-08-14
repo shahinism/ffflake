@@ -59,6 +59,9 @@ in {
       rustfmt # Used by Emacs to format Rust code
       rust-analyzer # Used by Emacs to provide Rust code completion
 
+      pavucontrol
+      audacity
+
       nodejs # required by copilot
       aspell # Used with Emacs as spell checker
       aspellDicts.en
