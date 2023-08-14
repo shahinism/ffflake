@@ -434,10 +434,10 @@
             install_url =
               "https://addons.mozilla.org/firefox/downloads/latest/link-gopher/latest.xpi";
           };
-          "jid1-Om7eJGwA1U8Akg@jetpack" = {
+          "save-extension@omnivore.app" = {
             installation_mode = "normal_installed";
             install_url =
-              "https://addons.mozilla.org/firefox/downloads/latest/octotree/latest.xpi";
+              "https://addons.mozilla.org/firefox/downloads/latest/omnivore/latest.xpi";
           };
           "extension@one-tab.com" = {
             installation_mode = "normal_installed";
@@ -448,16 +448,6 @@
             installation_mode = "normal_installed";
             install_url =
               "https://addons.mozilla.org/firefox/downloads/latest/raindropio/latest.xpi";
-          };
-          "{0109ab33-601c-417c-844b-e73a1a09ea14}" = {
-            installation_mode = "normal_installed";
-            install_url =
-              "https://addons.mozilla.org/firefox/downloads/latest/readwise-export/latest.xpi";
-          };
-          "team@readwise.io" = {
-            installation_mode = "normal_installed";
-            install_url =
-              "https://addons.mozilla.org/firefox/downloads/latest/readwise-highlighter/latest.xpi";
           };
           "{3c078156-979c-498b-8990-85f7987dd929}" = {
             installation_mode = "normal_installed";
