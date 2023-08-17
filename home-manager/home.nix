@@ -2,10 +2,10 @@
 
 let
   python-packages = p:
-    with p;
-    [
+    with p; [
       # python-lsp-server
       ipython
+      grip # markdown preview used by Emacs
     ];
   nodejs-packages = with pkgs.nodePackages_latest;
     [
@@ -53,15 +53,21 @@ in {
       cmake # rquired by emacs to build vterm
       gcc
       git-extras
-      tmux # TODO tune me
       silver-searcher
       okular
+      zstd # Used by emacs to optimize undo history
+      rustfmt # Used by Emacs to format Rust code
+      rust-analyzer # Used by Emacs to provide Rust code completion
+
+      pavucontrol
+      audacity
 
       nodejs # required by copilot
       aspell # Used with Emacs as spell checker
       aspellDicts.en
       aspellDicts.en-science
       aspellDicts.en-computers
+      emacs-all-the-icons-fonts
 
       # Required for Emacs vterm
       libvterm
@@ -74,6 +80,7 @@ in {
       xorg.xkill
 
       gimp
+      inkscape
       brave
       slack
       xclip
@@ -156,6 +163,9 @@ in {
       mullvad-vpn
       wireguard-tools
       deluge-gtk
+
+      # TEMP
+      vscodium-fhs
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {

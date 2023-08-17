@@ -457,12 +457,33 @@ let-env config = {
       event: { send: menuprevious }
     }
     {
-      name: history_menu
+      name: fuzzy_history
       modifier: control
       keycode: char_r
-      mode: emacs
-      event: { send: menu name: history_menu }
+      mode: [emacs, vi_normal, vi_insert]
+      event: [
+        {
+          send: ExecuteHostCommand
+          cmd: "commandline (
+            history
+              | each { |it| $it.command }
+              | uniq
+              | reverse
+              | str join (char -i 0)
+              | fzf --read0 --layout=reverse --height=40% -q (commandline)
+              | decode utf-8
+              | str trim
+          )"
+        }
+      ]
     }
+    # {
+    #   name: history_menu
+    #   modifier: control
+    #   keycode: char_r
+    #   mode: emacs
+    #   event: { send: menu name: history_menu }
+    # }
     {
       name: next_page
       modifier: control
