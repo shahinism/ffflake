@@ -154,6 +154,8 @@ in {
 
       protonvpn-cli
       mullvad-vpn
+      wireguard-tools
+      deluge-gtk
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
