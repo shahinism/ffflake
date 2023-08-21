@@ -50,9 +50,10 @@ guiset_quiet hoverlink right
 " Allow Ctrl-c to copy in the commandline
 unbind --mode=ex <C-c>
 
-" use all Gmail and Fastmail keyboard bindings
+" use default keybindings of the following services
 autocmd DocStart mail.google.com/* mode ignore
 autocmd DocStart app.fastmail.com/* mode ignore
+autocmd DocStart feedly.com/* mode ignore
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl
