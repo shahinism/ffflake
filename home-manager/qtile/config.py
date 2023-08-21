@@ -93,7 +93,12 @@ class Colors:
 
 keys = [
     ### The essentials
-    Key([mod], "Return", lazy.spawn("kitty zellij"), desc="Launch kitty terminal"),
+    Key(
+        [mod],
+        "Return",
+        lazy.spawn("kitty zellij -l compact"),
+        desc="Launch kitty terminal",
+    ),
     Key([mod], "d", lazy.spawn(launcher), desc="Run Launcher"),
     Key([mod], "q", lazy.window.kill(), desc="Kill active window"),
     Key([mod], "c", lazy.reload_config(), desc="Reload Qtile config"),
