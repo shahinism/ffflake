@@ -49,6 +49,17 @@
             ./system76/configuration.nix
             nixos-hardware.nixosModules.system76
             home-manager.nixosModules.home-manager
+            ./services.nix
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.shahin = { ... }: {
+                  imports = [ ./home-manager/home.nix ];
+                };
+                extraSpecialArgs = extraArgs;
+              };
+            }
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -71,6 +82,7 @@
             ./framework/configuration.nix
             nixos-hardware.nixosModules.framework-12th-gen-intel
             home-manager.nixosModules.home-manager
+            ./services.nix
             {
               home-manager = {
                 useGlobalPkgs = true;
