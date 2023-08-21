@@ -464,6 +464,11 @@
             install_url =
               "https://addons.mozilla.org/firefox/downloads/latest/sourcegraph-for-firefox/latest.xpi";
           };
+          "7esoorv3@alefvanoon.anonaddy.me" = {
+            installation_mode = "normal_installed";
+            install_url =
+              "https://addons.mozilla.org/firefox/downloads/latest/libredirect/latest.xpi";
+          };
         };
       };
     };
