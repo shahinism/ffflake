@@ -146,6 +146,8 @@ in {
 
       # AppImage
       appimage-run
+
+      jc
       jq
       asciinema
 
