@@ -281,3 +281,6 @@
   :bind
   (:map python-mode-map
         ("C-c C-u" . pyimpsort-buffer)))
+
+(use-package jq-mode
+  :mode "\\.jq\\'")
