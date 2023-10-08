@@ -565,6 +565,7 @@ let-env config = {
 source ~/.nu_scripts.nu
 source ~/.zoxide.nu
 source ~/.cache/starship/init.nu
+source ~/.local/share/atuin/init.nu
 
 # Aliases
 alias l = ls

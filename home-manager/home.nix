@@ -18,6 +18,7 @@ in {
   imports = [
     ./firefox.nix
     ./nushell.nix
+    ./atuin.nix
     ./kitty.nix
     ./bash.nix
     ./aliases.nix
@@ -163,9 +164,6 @@ in {
       mullvad-vpn
       wireguard-tools
       deluge-gtk
-
-      # TEMP
-      vscodium-fhs
     ] ++ nodejs-packages ++ [ devpkgs.devenv ];
 
   programs = {
