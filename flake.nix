@@ -49,7 +49,6 @@
             ./system76/configuration.nix
             nixos-hardware.nixosModules.system76
             home-manager.nixosModules.home-manager
-            ./services.nix
             {
               home-manager = {
                 useGlobalPkgs = true;
