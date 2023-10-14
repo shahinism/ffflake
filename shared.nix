@@ -7,16 +7,16 @@
   # Networking
   networking = {
     # dns servers
-    # nameservers = [ "127.0.0.1" "::1" ];
-    # dhcpcd.extraConfig = "nohook resolv.conf";
+    nameservers = [ "127.0.0.1" "::1" ];
+    dhcpcd.extraConfig = "nohook resolv.conf";
     networkmanager = {
       enable = true;
       # dns = "none";
     };
   };
-  # services.resolved.enable = false;
+  services.resolved.enable = false;
   services.dnscrypt-proxy2 = {
-    enable = false;
+    enable = true;
     settings = {
       ipv6_servers = true;
       require_dnssec = true;
@@ -42,6 +42,51 @@
 
   systemd.services.dnscrypt-proxy2.serviceConfig = {
     StateDirectory = "dnscrypt-proxy";
+  };
+
+  # TODO switch to Caddy if it can enable SSL for localhost
+  services.nginx = {
+    enable = true;
+    virtualHosts."syncthing" = {
+      locations."/".proxyPass = "http://127.0.0.1:8384";
+    };
+  };
+
+  # Syncthing
+  services.syncthing = {
+    enable = true;
+    user = "shahin";
+    dataDir = "/home/shahin/.local/share/syncthing";
+    configDir = "/home/shahin/.config/syncthing";
+    overrideDevices = true;
+    overrideFolders = true;
+
+    folders = {
+      "projects" = {
+        enable = true;
+        path = "/home/shahin/projects";
+      };
+
+      "org" = {
+        enable = true;
+        path = "/home/shahin/org";
+      };
+
+      "ssh" = {
+        enable = true;
+        path = "/home/shahin/.ssh";
+      };
+
+      "gnupg" = {
+        enable = true;
+        path = "/home/shahin/.gnupg";
+      };
+
+      "aws" = {
+        enable = true;
+        path = "/home/shahin/.aws";
+      };
+    };
   };
 
   # Set your time zone.

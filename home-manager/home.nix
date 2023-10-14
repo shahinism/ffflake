@@ -193,9 +193,6 @@ in {
   services.kbfs.enable = true;
   services.keybase.enable = true;
 
-  # TODO declarative configuration with secrets
-  services.syncthing = { enable = true; };
-
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
