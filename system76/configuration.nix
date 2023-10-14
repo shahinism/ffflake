@@ -42,7 +42,18 @@
   boot.initrd.luks.devices."luks-f049a6fd-4311-49db-a162-e5ed47deda90".keyFile =
     "/crypto_keyfile.bin";
 
-  networking.hostName = "system76"; # Define your hostname.
+  # Enable SDA on luks
+  environment.etc."crypttab".text = ''
+    sda-luks /dev/disk/by-uuid/b071583d-7257-4322-80ca-8e18c991b724 /root/sda.keyfile
+  '';
+
+  fileSystems."/home/shahin/projects" = {
+    device = "/dev/disk/by-uuid/9ec39ce1-0fef-41c8-a7a3-88c4674684c4";
+    fsType = "ext4";
+  };
+
+  # Define the hostname
+  networking.hostName = "system76";
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
