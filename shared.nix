@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
-{
+let syncting = { };
+in {
   # Kernel
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
@@ -53,7 +54,18 @@
   };
 
   # Syncthing
-  services.syncthing = {
+  services.syncthing = let
+    devices = {
+      framework = {
+        id = "B7ZQRU7-4OGAC33-KRQL4Q3-EQTXG7U-72TU7BR-2RK3MEN-ZPHKZAX-I45HDAK";
+      };
+      system76 = {
+        id = "4I37TGM-C23BXHD-D54Q52E-CAH6CEX-7J2WQPR-Z5AS26U-C3DL5V3-3TPFHQA";
+      };
+    };
+
+    allDevices = builtins.attrNames devices;
+  in {
     enable = true;
     user = "shahin";
     dataDir = "/home/shahin/.local/share/syncthing";
@@ -61,30 +73,37 @@
     overrideDevices = true;
     overrideFolders = true;
 
+    inherit devices;
+
     folders = {
       "projects" = {
         enable = true;
         path = "/home/shahin/projects";
+        devices = allDevices;
       };
 
       "org" = {
         enable = true;
         path = "/home/shahin/org";
+        devices = allDevices;
       };
 
       "ssh" = {
         enable = true;
         path = "/home/shahin/.ssh";
+        devices = allDevices;
       };
 
       "gnupg" = {
         enable = true;
         path = "/home/shahin/.gnupg";
+        devices = allDevices;
       };
 
       "aws" = {
         enable = true;
         path = "/home/shahin/.aws";
+        devices = allDevices;
       };
     };
   };
