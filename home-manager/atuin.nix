@@ -3,6 +3,6 @@
 
   home.file.".local/share/atuin" = {
     source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/atuin";
+      "${config.home.homeDirectory}/.config/ffflake/home-manager/atuin";
   };
 }

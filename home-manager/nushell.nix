@@ -17,7 +17,7 @@
 
   home.file.".config/nushell" = {
     source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/nushell/";
+      "${config.home.homeDirectory}/.config/ffflake/home-manager/nushell/";
   };
 
   home.file.".nu_scripts.nu" = {

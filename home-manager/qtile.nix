@@ -2,7 +2,7 @@
   home.file = {
     ".config/qtile" = {
       source = config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/projects/personal/ffflake/home-manager/qtile/";
+        "${config.home.homeDirectory}/.config/ffflake/home-manager/qtile/";
     };
   };
 }
