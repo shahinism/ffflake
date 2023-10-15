@@ -17,7 +17,7 @@
 ;; Add lisp folder to the load path
 (add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
 
+(require 'sh-org)
 (require 'config)
 (require 'sh-completion)
 (require 'sh-development)
-(require 'sh-org)
