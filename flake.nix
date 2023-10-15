@@ -1,98 +1,91 @@
 {
-  description = "My Personal Flake";
+  description = "Your new nix config";
 
   inputs = {
+    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    emacs-overlay.url = "github:nix-community/emacs-overlay/master";
-    emacs-src.url = "github:emacs-mirror/emacs/emacs-29";
-    emacs-src.flake = false;
-    devenv.url = "github:cachix/devenv/latest";
+    # You can access packages and modules from different nixpkgs revs
+    # at the same time. Here's an working example:
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
-    home-manager = { # User Package Management
-      url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Home manager
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # TODO: Add any other flake you might need
+    # hardware.url = "github:nixos/nixos-hardware";
+
+    # Shameless plug: looking for a way to nixify your themes and make
+    # everything match nicely? Try nix-colors!
+    # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, emacs-overlay
-    , emacs-src, devenv }:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        # overlays = [ (import self.inputs.emacs-overlay) ];
-        overlays = [
-          emacs-overlay.overlays.default
-          (final: prev: {
-            emacs29 = (prev.emacsGit.override {
-
-            }).overrideAttrs (old: {
-              name = "emacs29";
-              version = "29.0-90";
-              src = emacs-src;
-            });
-          })
-        ];
-      };
-      lib = nixpkgs.lib;
-      extraArgs = { inherit devenv; };
+      inherit (self) outputs;
+      # Supported systems for your flake packages, shell, etc.
+      systems = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      # This is a function that generates an attribute by calling a function you
+      # pass to it, with each system as an argument
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in {
+      # Your custom packages
+      # Acessible through 'nix build', 'nix shell', etc
+      packages =
+        forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      # Formatter for your nix files, available through 'nix fmt'
+      # Other options beside 'alejandra' include 'nixpkgs-fmt'
+      formatter =
+        forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
+      # Your custom packages and modifications, exported as overlays
+      overlays = import ./overlays { inherit inputs; };
+      # Reusable nixos modules you might want to export
+      # These are usually stuff you would upstream into nixpkgs
+      nixosModules = import ./modules/nixos;
+      # Reusable home-manager modules you might want to export
+      # These are usually stuff you would upstream into home-manager
+      homeManagerModules = import ./modules/home-manager;
+
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        system76 = lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
+        framework = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/framework ];
+        };
+
+        system76 = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/system76 ];
+        };
+      };
+
+      # Standalone home-manager configuration entrypoint
+      # Available through 'home-manager --flake .#your-username@your-hostname'
+      homeConfigurations = {
+        # FIXME replace with your username@hostname
+        "shahin@framework" = home-manager.lib.homeManagerConfiguration {
+          pkgs =
+            nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
           modules = [
-            ./overlays.nix
-            ./shared.nix
-            ./system76/configuration.nix
-            nixos-hardware.nixosModules.system76
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.shahin = { ... }: {
-                  imports = [ ./home-manager/home.nix ];
-                };
-                extraSpecialArgs = extraArgs;
-              };
-            }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.shahin = { ... }: {
-                  imports = [ ./home-manager/home.nix ];
-                };
-                extraSpecialArgs = extraArgs;
-              };
-            }
+            # > Our main home-manager configuration file <
+            ./home-manager/framework.nix
           ];
         };
 
-        framework = lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
-          modules = [
-            ./overlays.nix
-            ./shared.nix
-            ./framework/configuration.nix
-            nixos-hardware.nixosModules.framework-12th-gen-intel
-            home-manager.nixosModules.home-manager
-            ./services.nix
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.shahin = { ... }: {
-                  imports = [ ./home-manager/home.nix ];
-                };
-                extraSpecialArgs = extraArgs;
-              };
-            }
-          ];
+        "shahin@system76" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home-manager/system76.nix ];
         };
       };
     };
