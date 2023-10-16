@@ -500,3 +500,5 @@ accepted by `set-default-attribute'."
 (global-set-key (kbd "M-!") 'async-shell-command)
 (global-set-key (kbd "M-@") 'shell-command)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Programming ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package zoxide)
