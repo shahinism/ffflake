@@ -9,7 +9,7 @@
       '';
 
       search = {
-        default = "Startpage.com";
+        default = "kagi";
         force = true;
         engines = {
           "Bing".metaData.hidden = true;
@@ -17,7 +17,28 @@
           "Amazon.nl".metaData.hidden = true;
           "Wikipedia (en)".metaData.hidden = true;
 
-          "Startpage.com" = {
+          "kagi" = {
+            urls = [{
+              template = "https://kagi.com/search?q={searchTerms}";
+            }];
+            iconUpdateUrl = "https://assets.kagi.com/v2/apple-touch-icon.png";
+          };
+
+          "fastgpt" = {
+            urls = [{
+              template = "https://kagi.com/fastgpt?query={searchTerms}";
+            }];
+            iconUpdateUrl = "https://assets.kagi.com/v2/apple-touch-icon.png";
+          };
+
+          "summearizer" = {
+            urls = [{
+              template = "https://kagi.com/summarizer/index.html?url={searchTerms}";
+            }];
+            iconUpdateUrl = "https://assets.kagi.com/v2/apple-touch-icon.png";
+          };
+
+          "startpage" = {
             urls = [{
               template =
                 "https://www.startpage.com/do/dsearch?query={searchTerms}";
@@ -28,7 +49,7 @@
             definedAliases = [ "@sp" ];
           };
 
-          "Nix Packages" = {
+          "nix" = {
             urls = [{
               template = "https://search.nixos.org/packages";
               params = [

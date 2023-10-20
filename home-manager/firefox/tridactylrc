@@ -57,3 +57,14 @@ autocmd DocStart feedly.com/* mode ignore
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl
+
+" Search Engines
+set searchurls.sum https://kagi.com/summarizer/index.html?url=
+set searchurls.gpt https://kagi.com/fastgpt?query=
+set searchurls.caniuse https://caniuse.com/?search=
+set searchurls.gh https://github.com/search?q=
+set searchurls.mdn https://developer.mozilla.org/en-US/search?q=
+set searchurls.nixwiki https://nixos.wiki/index.php?search=
+set searchurls.hm https://mipmip.github.io/home-manager-option-search/?query=
+set searchurls.opts https://search.nixos.org/options?query=
+set searchurls.pkgs https://search.nixos.org/packages?query=
