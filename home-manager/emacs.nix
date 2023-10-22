@@ -46,7 +46,13 @@ in {
   home.file = {
     ".emacs.d" = {
       source = config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/.config/ffflake/home-manager/emacs/";
+        "${config.home.homeDirectory}/.config/ffflake/home-manager/emacs.chemacs2/";
+    };
+  };
+
+  home.file = {
+    ".emacs-profiles.el" = {
+      source = ./emacs-profile.el;
     };
   };
 }
