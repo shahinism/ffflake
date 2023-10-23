@@ -35,6 +35,58 @@ in {
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-unstable;
+    extraPackages = (epkgs: (with epkgs.melpaPackages; [
+      anaconda-mode
+      blacken
+      cape
+      cargo-mode
+      chatgpt-shell
+      consult
+      consult-ag
+      consult-eglot
+      # copilot
+      corfu
+      # corfu-terminal
+      crux
+      devdocs
+      direnv
+      docker
+      docker-compose-mode
+      dockerfile-mode
+      # eat
+      editorconfig
+      # eglot
+      embark
+      embark-consult
+      exec-path-from-shell
+      exercism
+      go-mode
+      hydra
+      indent-guide
+      magit
+      major-mode-hydra
+      marginalia
+      markdown-mode
+      markdown-toc
+      meow
+      nix-mode
+      nushell-mode
+      orderless
+      org-bullets
+      org-download
+      org-roam
+      # rainbow-mode
+      rust-mode
+      shell-maker
+      # sql
+      typescript-mode
+      undo-fu-session
+      vertico
+      # vundo
+      web-mode
+      yaml-mode
+      zoxide
+    ]));
   };
 
   services.emacs = {
