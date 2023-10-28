@@ -1,21 +1,26 @@
-(eval-and-compile
-  (customize-set-variable
-   'package-archives '(("org" . "https://orgmode.org/elpa/")
-                       ("melpa" . "https://melpa.org/packages/")
-                       ("gnu" . "https://elpa.gnu.org/packages/")))
-  (package-initialize)
-  (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
+;; -*- lexical-binding: t -*-
+;;; init.el --- Emacs configuration
+;;; Commentary:
+;;; Code:
 
-  (leaf leaf-keywords
-    :ensure t
-    :init
-    ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
-    (leaf hydra :ensure t)
-    (leaf el-get :ensure t)
-    (leaf blackout :ensure t)
+;; Add lisp folder to load path
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-    :config
-    ;; initialize leaf-keywords.el
-    (leaf-keywords-init)))
+(require 'sh-emacs)
+(require 'sh-utils)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(blackout el-get straight hydra leaf-keywords leaf)))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;; init.el ends here
