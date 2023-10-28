@@ -1,4 +1,4 @@
-;;; sh-emacs.el --- Emacs generic configuration
+;;; sh-emacs.el --- Emacs generic configuration -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 (provide 'sh-emacs)

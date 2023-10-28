@@ -128,7 +128,7 @@ in {
 
   fonts.fonts = with pkgs; [
     emacs-all-the-icons-fonts
-    (nerdfonts.override { fonts = [ "Inconsolata" "FiraCode" "Hack" ]; })
+    (nerdfonts.override { fonts = [ "Inconsolata" "FiraCode" "Hack" "RobotoMono" ]; })
   ];
 
   # Disable CUPS to print documents.

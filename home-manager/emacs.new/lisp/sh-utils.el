@@ -1,4 +1,4 @@
-;;; sh-utils.el --- Emacs Lisp utilities
+;;; sh-utils.el --- Emacs Lisp utilities -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 (provide 'sh-utils)

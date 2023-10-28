@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; init.el --- Emacs configuration
+;;; init.el --- Emacs configuration -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -8,6 +7,7 @@
 
 (require 'sh-emacs)
 (require 'sh-utils)
+(require 'sh-ui)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
