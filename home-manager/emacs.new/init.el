@@ -8,6 +8,7 @@
 (require 'sh-emacs)
 (require 'sh-utils)
 (require 'sh-ui)
+(require 'sh-keys)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
