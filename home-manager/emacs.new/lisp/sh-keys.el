@@ -38,7 +38,7 @@
    '("z" . hydra-chat/body)
    '("." . point-to-register)
    '(">" . jump-to-register)
-   '("p" . hydra-projectile/body)
+   '("p" . project/body)
    '("w" . hydra-window/body)
    '("v" . magit-status)
    '("l" . hydra-lsp-bridge/body)

@@ -9,6 +9,8 @@
 (require 'sh-utils)
 (require 'sh-ui)
 (require 'sh-keys)
+(require 'sh-completion)
+(require 'sh-code)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
