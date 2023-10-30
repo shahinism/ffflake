@@ -28,7 +28,11 @@
 (setq debug-on-error t)
 
 ;; Set default coding system
+(prefer-coding-system       'utf-8)
 (set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-language-environment   'utf-8)
 
 ;; Visually flash instead of beep!
 (customize-set-variable 'visible-bell 1)
@@ -44,6 +48,9 @@
 
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
+
+;; Tab.space equivalent
+(setq-default tab-width 4)
 
 ;; Shorten the confirmation answers. Prefer setting the config
 ;; variable available on Emacs 28.
@@ -91,5 +98,70 @@
 
 (show-paren-mode 1)
 (setq show-paren-style 'mixed)
+
+;; No startup screen
+(setq inhibit-startup-screen t)
+
+;; No scratch message
+(setq initial-scratch-message nil)
+
+;; Initial buffer
+(setq initial-buffer-choice nil)
+
+;; No frame title
+(setq frame-title-format nil)
+
+;; No file dialog
+(setq use-file-dialog nil)
+
+;; No dialog box
+(setq use-dialog-box nil)
+
+;; No popup windows
+(setq pop-up-windows nil)
+
+;; No cursor in inactive windows
+(setq cursor-in-non-selected-windows nil)
+
+;; Text mode is initial mode
+(setq initial-major-mode 'text-mode)
+
+;; Text mode is default major mode
+(setq default-major-mode 'text-mode)
+
+;; Moderate font lock
+(setq font-lock-maximum-decoration nil)
+
+;; No limit on font lock
+(setq font-lock-maximum-size nil)
+
+;; No line break space points
+(setq auto-fill-mode nil)
+
+;; Fill column at 80
+(setq fill-column 80)
+
+;; No confirmation for visiting non-existent files
+(setq confirm-nonexistent-file-or-buffer nil)
+
+;; Completion style, see
+;; gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html
+(setq completion-styles '(basic substring))
+
+;; Use RET to open org-mode links, including those in quick-help.org
+(setq org-return-follows-link t)
+
+;; Mouse active in terminal
+(unless (display-graphic-p)
+  (xterm-mouse-mode 1)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
+
+;; Unique buffer names
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse
+      uniquify-separator " • "
+      uniquify-after-kill-buffer-p t
+      uniquify-ignore-buffers-re "^\\*")
 
 ;;; sh-emacs.el ends here
