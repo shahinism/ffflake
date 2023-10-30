@@ -53,7 +53,9 @@
   (corfu-echo-documentation . 0.25) ;; Show documentation after 0.25 sec
   :bind (:corfu-map
          ("C-j" . corfu-next)
-         ("C-k" . corfu-previous))
+         ("C-k" . corfu-previous)
+         ("j" . nil)
+         ("k" . nil))
   :hook
   (corfu-mode-hook . corfu-popupinfo-mode)
   :init
