@@ -45,20 +45,20 @@
   :doc "Completion Overlay Region Functions for Emacs"
   :url "https://github.com/minad/corfu/"
   :ensure t
-  :after vertico
   :custom
-  (corfu-cycle . t)  ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto . t)  ;; Enable auto completion)
-  (corfu-auto-prefix . 2)  ;; Show auto-completion after typing two letters
-  (corfu-auto-delay . 0.0) ;; Show auto-completion immeditately
-  (corfu-echo-documentation . 0.25)  ;; Show documentation after 0.25 sec
+  (corfu-cycle . t)                 ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto . t)                  ;; Enable auto completion)
+  (corfu-auto-prefix . 2)           ;; Show auto-completion after typing two letters
+  (corfu-auto-delay . 0.0)          ;; Show auto-completion immeditately
+  (corfu-echo-documentation . 0.25) ;; Show documentation after 0.25 sec
   :bind (:corfu-map
          ("C-j" . corfu-next)
          ("C-k" . corfu-previous))
   :hook
   (corfu-mode-hook . corfu-popupinfo-mode)
-  :config
+  :init
   (global-corfu-mode)
+  :config
   (eldoc-add-command #'corfu-insert)
   )
 
@@ -67,6 +67,7 @@
   :url "https://codeberg.org/akib/emacs-corfu-terminal"
   :straight (corfu-terminal :host codeberg
                             :repo "akib/emacs-corfu-terminal")
+  :disabled t
   :if (display-graphic-p)
   :after corfu
   :config
