@@ -271,7 +271,7 @@
     ;;  Move anaconda python installation directory to user var/
   (customize-set-variable
    'anaconda-mode-installation-directory
-   (expand-file-name "anaconda-mode" lt/config-var-dir))
+   (expand-file-name "anaconda-mode" sh/var-dir))
   )
 
 (leaf blacken

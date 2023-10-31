@@ -3,6 +3,7 @@
 ;;; Code:
 (provide 'sh-emacs)
 
+
 ;; Define the user configuration folders and ensure they exist:
 (defvar sh/cache-dir (expand-file-name "cache/" user-emacs-directory)
   "Directory to store persistent cache files.")

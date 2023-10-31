@@ -78,4 +78,51 @@ When REGION is non-nil, unfill each paragraph in the region,"
   (setq vundo-glyph-alist vundo-unicode-symbols)
   )
 
+(leaf ace-window
+  :doc "Quickly switch windows"
+  :url "https://github.com/abo-abo/ace-window"
+  :ensure t
+  :pretty-hydra
+  ((:color teal :quit-key "q")
+   ("Actions"
+    (("TAB" other-window "switch")
+     ("d" ace-delete-window "delete" :color amaranth)
+     ("m" ace-delete-other-windows "maximize")
+     ("s" ace-swap-window "swap")
+     ("a" ace-select-window "select"))
+    "Move"
+    (("h" windmove-left "←")
+     ("j" windmove-down "↓")
+     ("k" windmove-up "↑")
+     ("l" windmove-right "→"))
+
+    "Resize"
+    (("H" move-border-left "←" :color amaranth)
+     ("J" move-border-down "↓" :color amaranth)
+     ("K" move-border-up "↑" :color amaranth)
+     ("L" move-border-right "→" :color amaranth)
+     ("n" balance-windows "balance")
+     ("f" toggle-frame-fullscreen "toggle fullscreen"))
+
+    "Split"
+    (("/" split-window-right "horizontally")
+     ("?" split-window-horizontally-instead "horizontally instead")
+     ("-" split-window-below "vertically")
+     ("_" split-window-vertically-instead "vertically instead"))
+
+    "Zoom"
+    (("i" text-scale-increase "in" :color amaranth)
+     ("o" text-scale-decrease "out" :color amaranth)
+     ("0" (lambda ()
+            (interactive)
+            (zoom-in/out 0)) "reset"))))
+  )
+
+(leaf zoxide
+  :doc "Find file by zoxide"
+  :url "https://github.com/emacsmirror/zoxide"
+  :ensure t
+  :bind
+  ("C-c z" . zoxide-find-file)
+  )
 ;;; sh-utils.el ends here

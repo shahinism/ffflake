@@ -39,7 +39,7 @@
    '("." . point-to-register)
    '(">" . jump-to-register)
    '("p" . project/body)
-   '("w" . hydra-window/body)
+   '("w" . ace-window/body)
    '("v" . magit-status)
    '("l" . hydra-lsp-bridge/body)
    '("t" . hydra-toggle/body)

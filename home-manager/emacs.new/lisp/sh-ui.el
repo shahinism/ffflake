@@ -93,13 +93,6 @@
   (if (null (x-list-fonts font))
       nil t))
 
-;; Set default font. First one found is selected.
-(cond
- ((eq window-system nil) nil)
- ((font-existsp "FiraCode Nerd Font")
-  (set-face-attribute 'default nil :height 138 :font "FiraCode Nerd Font"))
- ((font-existsp "Hack Nerd Font")
-  (set-face-attribute 'default nil :height 138 :font "Hack Nerd Font"))
- )
-
+;; Set default font.
+(add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13.5"))
 ;;; sh-ui.el ends here
