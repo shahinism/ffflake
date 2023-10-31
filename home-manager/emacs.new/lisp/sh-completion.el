@@ -118,7 +118,10 @@
   ("C-s" . 'consult-line)
   ("M-y" . 'consult-yank-pop)
   (:minibuffer-local-map
-   ("C-r" . consult-history)))
+   ("C-r" . consult-history))
+  :custom
+  (xref-show-xrefs-function . #'consult-xref)
+  (xref-show-definitions-function . #'consult-xref))
 
 (leaf consult-eglot
   :doc "Consult integration for eglot"
