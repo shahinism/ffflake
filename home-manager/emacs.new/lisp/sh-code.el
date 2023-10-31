@@ -313,4 +313,26 @@
     ))
   )
 
+(leaf hs-minor-mode
+  :doc "Hide and show blocks of text"
+  :tag "builtin"
+  :hook
+  (prog-mode-hook . hs-minor-mode)
+  :bind
+  ("C-c h" . hs-minor-mode/body)
+  :pretty-hydra
+  ((:color teal :quit-key "q")
+   ("Block"
+    (("h" hs-hide-block "hide block")
+     ("s" hs-show-block "show block")
+     ("t" hs-toggle-hiding "toggle hiding"))
+    "All"
+    (("H" hs-hide-all "hide all")
+     ("S" hs-show-all "show all"))
+    "Level"
+    (("l" hs-hide-level "hide level")
+    ))
+   )
+  )
+
 ;;; sh-code.el ends here
