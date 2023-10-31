@@ -89,6 +89,27 @@
   :ensure t
   :commands magit-status)
 
+(leaf git-gutter
+  :doc "Port of Sublime Text plugin GitGutter"
+  :url "https://github.com/emacsorphanage/git-gutter"
+  :ensure t
+  :hook
+  (prog-mode-hook . git-gutter-mode)
+  :bind
+  ("C-x g" . git-gutter/body)
+  :pretty-hydra
+  ((:color red :hint nil :quit-key "q")
+   ("Jump"
+   (("n" git-gutter:next-hunk "next hunk")
+    ("p" git-gutter:previous-hunk "previous hunk"))
+   "Action"
+   (("s" git-gutter:stage-hunk "stage hunk" :color blue)
+    ("r" git-gutter:revert-hunk "revert hunk" :color blue)
+    ("d" git-gutter:popup-hunk "popup hunk" :color blue)
+    ("R" git-gutter:set-start-revision "set start revision" :color blue))
+   ))
+  )
+
 ;; TODO git-gutter
 
 (leaf markdown-mode
