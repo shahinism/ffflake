@@ -125,4 +125,32 @@ When REGION is non-nil, unfill each paragraph in the region,"
   :bind
   ("C-c z" . zoxide-find-file)
   )
+
+(leaf avy
+  :doc "Jump to things in Emacs tree-style"
+  :url "https://github.com/abo-abo/avy"
+  :ensure t
+  :bind
+  ("C-c j" . avy/body)
+  :pretty-hydra
+  ((:color teal :quit-key "q")
+   ("Char"
+    (("c" avy-goto-char-timer "Char Timer")
+     ("C" avy-goto-char "Char"))
+    "Word"
+    (("w" avy-goto-word-1 "Word")
+     ("W" avy-goto-word-0 "Word 0"))
+    "Line"
+    (("l" avy-goto-line "Line")
+     ("L" avy-goto-end-of-line "End of Line")
+     ("m" avy-move-line "Move Line")
+     ("y" avy-copy-line "Copy Line")
+     ("k" avy-kill-whole-line "Kill Line"))
+    "Region"
+    (("M" avy-move-region "Move Region")
+     ("R" avy-resume "Resume")
+     ("K" avy-kill-region "Kill Region")
+     ("Y" avy-copy-region "Copy Region"))
+    ))
+  )
 ;;; sh-utils.el ends here
