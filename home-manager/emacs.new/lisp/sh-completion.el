@@ -123,11 +123,13 @@
   :bind
   ("C-s" . 'consult-line)
   ("M-y" . 'consult-yank-pop)
+  ("C-x F". 'consult-recent-file)
   (:minibuffer-local-map
    ("C-r" . consult-history))
   :custom
   (xref-show-xrefs-function . #'consult-xref)
-  (xref-show-definitions-function . #'consult-xref))
+  (xref-show-definitions-function . #'consult-xref)
+  )
 
 (leaf consult-eglot
   :doc "Consult integration for eglot"
