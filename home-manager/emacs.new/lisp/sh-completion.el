@@ -41,6 +41,12 @@
   (completion-category-overrides . '((file (styles partial-completion))))
   )
 
+(defun sh/corfu-exit ()
+  "Exit corfu and go back to meow normal mode."
+  (interactive)
+  (corfu-quit)
+  (meow-normal-mode))
+
 (leaf corfu
   :doc "Completion Overlay Region Functions for Emacs"
   :url "https://github.com/minad/corfu/"
@@ -54,8 +60,8 @@
   :bind (:corfu-map
          ("C-j" . corfu-next)
          ("C-k" . corfu-previous)
-         ("j" . nil)
-         ("k" . nil))
+         ("<escape>" . sh/corfu-exit)
+         )
   :hook
   (corfu-mode-hook . corfu-popupinfo-mode)
   :init
