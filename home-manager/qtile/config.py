@@ -20,7 +20,7 @@ from utils import *
 mod = "mod4"  # Sets mod key to SUPER/WINDOWS
 mod1 = "mod1"
 
-launcher = 'rofi -show combi -combi-modi "drun,run"'
+launcher = 'rofi -show combi -combi-modi "drun,run" -theme zenburn'
 font = "Hack Nerd Font"
 
 import subprocess
@@ -127,7 +127,7 @@ keys = [
     Key([mod], "f", lazy.window.toggle_floating()),
     Key([mod], "m", lazy.window.toggle_fullscreen()),
     Key([mod], "n", lazy.window.toggle_minimize()),
-    Key([mod1], "Tab", lazy.spawn("rofi -show window")),
+    Key([mod1], "Tab", lazy.spawn("rofi -show window -theme zenburn")),
     Key([mod], "x", lazy_lock_screen()),
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
