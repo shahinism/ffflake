@@ -234,10 +234,25 @@ plugins {
 //     }
 // }
 
+themes {
+  zenburn {
+    fg      "#dcdccc"
+    bg      "#3f3f3f"
+    red     "#dca3a3"
+    green   "#60b48a"
+    yellow  "#f0deae"
+    blue    "#94bff3"
+    magenta "#ec93d3"
+    orange  "#dfcf9f"
+    cyan    "#93e0e3"
+    black   "#21322f"
+    white   "#ffffff"
+  }
+}
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// theme "default"
+theme "zenburn"
 
 // The name of the default layout to load on startup
 // Default: "default"
