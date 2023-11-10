@@ -153,4 +153,33 @@ When REGION is non-nil, unfill each paragraph in the region,"
      ("Y" avy-copy-region "Copy Region"))
     ))
   )
+
+(leaf restclient
+  :doc "HTTP REST client tool for Emacs"
+  :url "https://github.com/pashky/restclient.el"
+  :ensure t
+  :mode
+  ("\\.http\\'" . restclient-mode)
+  :bind (:restclient-mode-map ("C-c C-c" . restclient/body))
+  :pretty-hydra
+  ((:color teal :quit-key "q")
+   ("Actions"
+    (("S" restclient-http-send-current-stay-in-window "send")
+     ("s" restclient-http-send-current "send and switch")
+     ("R" restclient-http-send-current-raw-stay-in-window "send raw")
+     ("r" restclient-http-send-current-raw "send raw and switch")
+     ("E" restclient-http-send-current-raw-stay-in-window "send raw")
+     ("E" restclient-http-send-current-raw "send raw and switch")
+     ("c" restclient-copy-curl-command "copy curl command")
+     ("C" restclient-copy-curl-command-as-org-link "copy curl command as org link"))
+    "Navigation"
+    (("n" restclient-jump-next "next")
+     ("p" restclient-jump-prev "previous")
+     ("N" restclient-narrow-to-current "narrow to current"))
+    "Misc"
+    (("t" restclient-mark-current "mark current")
+     ("T" restclient-mark-current-and-copy "mark current and copy")
+     ("u" restclient-unmark "unmark")
+     ("U" restclient-unmark-all "unmark all"))
+    )))
 ;;; sh-utils.el ends here
