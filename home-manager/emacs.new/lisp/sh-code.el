@@ -298,11 +298,13 @@
 (leaf blacken
   :doc "Blacken Python source code"
   :url "https://github.com/pythonic-emacs/blacken"
-  :ensure t)
+  :ensure t
+  :hook
+  (python-mode-hook . blacken-mode))
 
 (leaf pyimport
   :doc "Import completion for Python"
-  :url "https://github.com/pythonic-emacs/blacken"
+  :url "https://github.com/Wilfred/pyimport"
   :ensure t
   :pretty-hydra
   ;; TODO bind this hydra
