@@ -344,4 +344,33 @@
     "Turn on orgtbl-mode."
     ;; NOTE this is a workaround for a bug in feature-mode
     ))
+
+(leaf flycheck
+  :doc "On-the-fly syntax checking"
+  :url "https://www.flycheck.org/en/latest/"
+  :ensure t
+  :hook
+  (prog-mode-hook . flycheck-mode)
+  :bind
+  ("C-c e" . flycheck/body)
+  :custom
+  (flycheck-check-syntax-automatically . '(save mode-enabled))
+  (flycheck-idle-change-delay . 0.5)
+  (flycheck-display-errors-delay . 0.5)
+  :pretty-hydra
+  ((:color teal :quit-key "q")
+   ("Errors"
+    (("n" flycheck-next-error "next error")
+     ("p" flycheck-previous-error "previous error")
+     ("l" flycheck-list-errors "list errors"))
+    "Checker"
+     (("d" flycheck-describe-checker "describe checker")
+     ("m" flycheck-mode "toggle mode")
+     ("s" flycheck-select-checker "select checker")
+     ("c" flycheck-clear "clear")
+     ("C" flycheck-buffer "check buffer")
+     ("v" flycheck-verify-setup "verify setup"))
+    ))
+  )
+
 ;;; sh-code.el ends here
