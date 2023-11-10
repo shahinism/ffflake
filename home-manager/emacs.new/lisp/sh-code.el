@@ -335,4 +335,13 @@
    )
   )
 
+(leaf feature-mode
+  :doc "Major mode for editing Gherkin files"
+  :url "https://github.com/emacsmirror/feature-mode"
+  :ensure t
+  :config
+  (defun turn-on-orgtbl ()
+    "Turn on orgtbl-mode."
+    ;; NOTE this is a workaround for a bug in feature-mode
+    ))
 ;;; sh-code.el ends here
