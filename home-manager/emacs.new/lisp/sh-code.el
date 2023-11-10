@@ -375,4 +375,19 @@
     ))
   )
 
+(leaf flycheck-posframe
+  :doc "Flycheck errors display in posframe"
+  :url "https://github.com/alexmurray/flycheck-posframe"
+  :ensure t
+  :hook
+  (flycheck-mode-hook . flycheck-posframe-mode)
+  :config
+  (flycheck-posframe-configure-pretty-defaults))
+
+(leaf flycheck-rust
+  :doc "Flycheck: Rust additions and Cargo support"
+  :url "https://github.com/flycheck/flycheck-rust"
+  :ensure t
+  :hook
+  (rust-mode-hook . flycheck-rust-setup))
 ;;; sh-code.el ends here
